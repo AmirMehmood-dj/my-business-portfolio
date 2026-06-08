@@ -1,0 +1,149 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ExternalLink, Code2, Globe } from "lucide-react";
+import { projects } from "@/lib/data";
+import type { Project } from "@/lib/types";
+
+const categories = ["All", "Web", "Mobile", "AI", "Business"] as const;
+type Category = (typeof categories)[number];
+
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ delay: index * 0.07, duration: 0.35 }}
+      className="group relative bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
+    >
+      {/* Image */}
+      <div className="relative h-48 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] flex items-center justify-center overflow-hidden">
+        <Globe size={48} className="text-[#BFDBFE]" />
+        {/* Category badge */}
+        <span className="absolute top-3 right-3 px-2.5 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-[#2563EB] rounded-lg border border-[#BFDBFE]">
+          {project.category}
+        </span>
+        {project.featured && (
+          <span className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-[#2563EB] text-white rounded-lg">
+            Featured
+          </span>
+        )}
+      </div>
+
+      <div className="p-5">
+        <h3 className="font-semibold text-[#0F172A] text-base mb-2 group-hover:text-[#2563EB] transition-colors">
+          {project.title}
+        </h3>
+        <p className="text-sm text-[#64748B] leading-relaxed mb-4">
+          {project.description}
+        </p>
+
+        {/* Tech stack */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="px-2 py-0.5 text-xs bg-[#F8FAFC] text-[#64748B] rounded-md border border-[#E2E8F0]"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+
+        {/* Links */}
+        <div className="flex items-center gap-3 pt-3 border-t border-[#F1F5F9]">
+          {project.live_url && (
+            <a
+              href={project.live_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
+            >
+              <ExternalLink size={14} />
+              Live Demo
+            </a>
+          )}
+          {project.github_url && (
+            <a
+              href={project.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors ml-auto"
+            >
+              <Code2 size={14} />
+              Code
+            </a>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Projects() {
+  const [active, setActive] = useState<Category>("All");
+
+  const filtered =
+    active === "All"
+      ? projects
+      : projects.filter((p) => p.category === active);
+
+  return (
+    <section id="projects" className="py-24 bg-[#F8FAFC]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <p className="text-sm font-medium text-[#2563EB] uppercase tracking-widest mb-3">
+            Portfolio
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A]">
+            Selected work
+          </h2>
+          <p className="mt-4 text-[#64748B] max-w-xl mx-auto">
+            A showcase of projects I&apos;ve built — from SaaS platforms to
+            mobile apps and AI-powered tools.
+          </p>
+        </motion.div>
+
+        {/* Filter tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap items-center justify-center gap-2 mb-10"
+        >
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActive(cat)}
+              className={`px-4 py-2 text-sm font-medium rounded-xl transition-all duration-200 ${
+                active === cat
+                  ? "bg-[#2563EB] text-white shadow-md shadow-blue-200"
+                  : "bg-white text-[#64748B] border border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#2563EB]"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Grid */}
+        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => (
+              <ProjectCard key={project.id} project={project} index={i} />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
