@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/layout/ScrollProgress";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,54 +16,51 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://amirmehar.dev";
+const siteUrl = "https://aamirmehmood.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Amir Mehar — Frontend Engineer & Mobile Developer",
-    template: "%s | Amir Mehar",
+    default: "Aamir Mehmood — Website & Application Developer",
+    template: "%s | Aamir Mehmood",
   },
   description:
-    "Expert frontend engineer specializing in React, Next.js, React Native, and AI integrations. Building fast, scalable, and modern web & mobile applications.",
+    "Aamir Mehmood — Freelance Website & Application Developer from Pakistan. I build fast, scalable web apps, mobile apps, and AI-powered solutions using React, Next.js, and React Native. Available for freelance projects.",
   keywords: [
-    "Frontend Engineer",
+    "Aamir Mehmood",
+    "Website Developer Pakistan",
+    "Application Developer Pakistan",
+    "Freelance Developer Pakistan",
     "React Developer",
     "Next.js Developer",
-    "React Native",
+    "React Native Developer",
     "Mobile App Developer",
-    "TypeScript",
-    "Tailwind CSS",
+    "Full Stack Developer",
+    "TypeScript Developer",
     "AI Prompt Engineer",
-    "Freelance Developer",
-    "Amir Mehar",
+    "SEO Developer",
+    "Figma to Code",
+    "Hire Web Developer",
+    "Web Development Services",
   ],
-  authors: [{ name: "Amir Mehar", url: siteUrl }],
-  creator: "Amir Mehar",
+  authors: [{ name: "Aamir Mehmood", url: siteUrl }],
+  creator: "Aamir Mehmood",
   openGraph: {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "Amir Mehar Portfolio",
-    title: "Amir Mehar — Frontend Engineer & Mobile Developer",
+    siteName: "Aamir Mehmood Portfolio",
+    title: "Aamir Mehmood — Website & Application Developer",
     description:
-      "Expert frontend engineer specializing in React, Next.js, React Native, and AI integrations.",
+      "Freelance Website & Application Developer from Pakistan. Building fast, scalable web apps, mobile apps, and AI-powered solutions. Available for new projects.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Amir Mehar — Frontend Engineer",
+        alt: "Aamir Mehmood — Website & Application Developer",
       },
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Amir Mehar — Frontend Engineer & Mobile Developer",
-    description:
-      "Expert frontend engineer specializing in React, Next.js, React Native, and AI integrations.",
-    images: ["/og-image.jpg"],
-    creator: "@amirmehar",
   },
   robots: {
     index: true,
@@ -78,19 +76,23 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  manifest: "/manifest.json",
+  verification: {
+    google: "lHTLTQCd_8etLKCiSp9csewYVz-062HrEjtfURQxu4A",
+  },
 };
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Amir Mehar",
+  name: "Aamir Mehmood",
   url: siteUrl,
-  jobTitle: "Frontend Engineer & Mobile Developer",
+  jobTitle: "Website & Application Developer",
   description:
     "Expert in building scalable web apps, mobile apps, SEO-optimized websites, and converting Figma designs into pixel-perfect UI.",
   sameAs: [
-    "https://github.com/amirmehar",
-    "https://linkedin.com/in/amirmehar",
+    "https://github.com/AmirMehmood-dj",
+    "https://www.linkedin.com/in/amirmehmood0325/",
   ],
   knowsAbout: [
     "React",
@@ -106,11 +108,11 @@ const personSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Amir Mehar Portfolio",
+  name: "Aamir Mehmood Portfolio",
   url: siteUrl,
   author: {
     "@type": "Person",
-    name: "Amir Mehar",
+    name: "Aamir Mehmood",
   },
 };
 
@@ -135,6 +137,18 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen bg-white text-[#0F172A]">
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-FPQ0K6P2P6"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-FPQ0K6P2P6');
+          `}
+        </Script>
         <ScrollProgress />
         {children}
       </body>

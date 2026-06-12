@@ -1,48 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Mail, MessageCircle, Link, Send, CheckCircle2, Loader2 } from "lucide-react";
-import { supabase } from "@/lib/supabase";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email"),
-  budget: z.string().min(1, "Please select a budget"),
-  message: z.string().min(20, "Message must be at least 20 characters"),
+  budget: z.string().min(1, "Please select a subject"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-const budgetOptions = [
-  "< $500",
-  "$500 – $1,000",
-  "$1,000 – $5,000",
-  "$5,000 – $10,000",
-  "$10,000+",
-  "Let's discuss",
+const subjectOptions = [
+  "Just saying hi 👋",
+  "Work opportunity",
+  "Freelance project",
+  "Collaboration",
+  "Question",
+  "Other",
 ];
 
 const contactInfo = [
   {
     icon: Mail,
     label: "Email",
-    value: "amir@example.com",
-    href: "mailto:amir@example.com",
+    value: "meharamir985@gmail.com",
+    href: "mailto:meharamir985@gmail.com",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    value: "+92 300 1234567",
-    href: "https://wa.me/923001234567",
+    value: "+92 301 8659791",
+    href: "https://wa.me/923018659791",
   },
   {
     icon: Link,
     label: "LinkedIn",
-    value: "linkedin.com/in/amirmehar",
-    href: "https://linkedin.com/in/amirmehar",
+    value: "linkedin.com/in/amirmehmood0325",
+    href: "https://www.linkedin.com/in/amirmehmood0325/",
   },
 ];
 
@@ -50,6 +49,13 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Auto-reset success state after 6 seconds
+  useEffect(() => {
+    if (!submitted) return;
+    const timer = setTimeout(() => setSubmitted(false), 6000);
+    return () => clearTimeout(timer);
+  }, [submitted]);
 
   const {
     register,
@@ -62,10 +68,20 @@ export default function Contact() {
     setLoading(true);
     setError(null);
     try {
-      const { error: supabaseError } = await supabase
-        .from("contacts")
-        .insert([{ ...data, status: "new" }]);
-      if (supabaseError) throw supabaseError;
+      const payload = { name: data.name, email: data.email, subject: data.budget, message: data.message };
+      const [formspreeRes] = await Promise.all([
+        fetch("https://formspree.io/f/xgobnwjr", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify(payload),
+        }),
+        fetch("/api/contacts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }),
+      ]);
+      if (!formspreeRes.ok) throw new Error("Failed to send");
       setSubmitted(true);
       reset();
     } catch {
@@ -89,21 +105,20 @@ export default function Contact() {
             Contact
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A]">
-            Let&apos;s work together
+            Let&apos;s connect
           </h2>
           <p className="mt-4 text-[#64748B] max-w-xl mx-auto">
-            Have a project in mind? I&apos;d love to hear about it. Send me a
-            message and I&apos;ll get back to you within 24 hours.
+            Whether you want to work together, ask a question, or just say hi — I&apos;d love to hear from you. I&apos;ll reply within 24 hours.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Contact info */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6"
+            className="md:col-span-1 lg:col-span-2 space-y-6"
           >
             <div>
               <h3 className="font-semibold text-[#0F172A] mb-1">
@@ -159,7 +174,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-3"
+            className="md:col-span-1 lg:col-span-3"
           >
             {submitted ? (
               <div className="h-full flex flex-col items-center justify-center p-10 bg-white rounded-2xl border border-[#E2E8F0] text-center">
@@ -216,19 +231,19 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Budget */}
+                {/* Subject */}
                 <div>
                   <label className="block text-sm font-medium text-[#0F172A] mb-1.5">
-                    Budget <span className="text-red-500">*</span>
+                    Subject <span className="text-red-500">*</span>
                   </label>
                   <select
-                    {...register("budget", { required: "Budget is required" })}
+                    {...register("budget", { required: "Please select a subject" })}
                     className="w-full px-4 py-2.5 text-sm border border-[#E2E8F0] rounded-xl outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE] transition-all bg-white text-[#0F172A]"
                   >
-                    <option value="">Select budget range</option>
-                    {budgetOptions.map((b) => (
-                      <option key={b} value={b}>
-                        {b}
+                    <option value="">What's this about?</option>
+                    {subjectOptions.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
                       </option>
                     ))}
                   </select>
@@ -243,9 +258,9 @@ export default function Contact() {
                     Message <span className="text-red-500">*</span>
                   </label>
                   <textarea
-                    {...register("message", { required: "Message is required", minLength: { value: 20, message: "Min 20 characters" } })}
+                    {...register("message", { required: "Message is required", minLength: { value: 10, message: "Min 10 characters" } })}
                     rows={5}
-                    placeholder="Tell me about your project..."
+                    placeholder="Hey Amir, I'd love to chat about..."
                     className="w-full px-4 py-2.5 text-sm border border-[#E2E8F0] rounded-xl outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE] transition-all resize-none placeholder:text-[#CBD5E1]"
                   />
                   {errors.message && (

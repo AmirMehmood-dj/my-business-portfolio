@@ -1,13 +1,19 @@
 import type { MetadataRoute } from "next";
-import { blogPosts } from "@/lib/data";
+import { createServerClient } from "@/lib/supabase";
 
-const siteUrl = "https://amirmehar.dev";
+const siteUrl = "https://aamirmehmood.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const blogRoutes = blogPosts.map((post) => ({
-    url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.published_at),
-    changeFrequency: "monthly" as const,
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const db = createServerClient();
+  const { data: projects } = await db
+    .from("projects")
+    .select("id, created_at")
+    .order("created_at", { ascending: false });
+
+  const projectUrls: MetadataRoute.Sitemap = (projects ?? []).map((p) => ({
+    url: `${siteUrl}/projects/${p.id}`,
+    lastModified: new Date(p.created_at),
+    changeFrequency: "monthly",
     priority: 0.7,
   }));
 
@@ -18,12 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    {
-      url: `${siteUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    ...blogRoutes,
+    ...projectUrls,
   ];
 }

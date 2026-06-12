@@ -1,8 +1,9 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Globe, Smartphone, Palette, TrendingUp, Cpu, ArrowRight } from "lucide-react";
-import { services } from "@/lib/data";
+import { Globe, Smartphone, Palette, TrendingUp, Cpu, Code2, Layers, Zap, ArrowRight } from "lucide-react";
+import type { Service } from "@/lib/types";
 
 const iconMap: Record<string, React.ElementType> = {
   Globe,
@@ -10,9 +11,20 @@ const iconMap: Record<string, React.ElementType> = {
   Palette,
   TrendingUp,
   Cpu,
+  Code2,
+  Layers,
+  Zap,
 };
 
 export default function Services() {
+  const [services, setServices] = useState<Service[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/services")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setServices(data); });
+  }, []);
+
   return (
     <section id="services" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,12 +48,12 @@ export default function Services() {
         </motion.div>
 
         {/* Services grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {services.map((service, i) => {
             const Icon = iconMap[service.icon] || Globe;
             return (
               <motion.div
-                key={service.title}
+                key={service.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -66,7 +78,7 @@ export default function Services() {
 
                 {/* Features */}
                 <ul className="space-y-1.5 mb-5">
-                  {service.features.map((f) => (
+                  {(service.features ?? []).map((f) => (
                     <li key={f} className="flex items-center gap-2 text-sm text-[#64748B]">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] flex-shrink-0" />
                       {f}

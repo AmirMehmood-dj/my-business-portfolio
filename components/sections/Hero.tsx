@@ -1,7 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Code2, Link, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import type { HeroSettings } from "@/lib/types";
+
+type SocialSettings = { github: string; linkedin: string; email: string; whatsapp: string };
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -12,7 +17,34 @@ const fadeUp = {
   }),
 };
 
+const defaultHero: HeroSettings = {
+  name: "Aamir Mehmood",
+  role: "Website & Application Developer · AI Prompt Engineer",
+  tagline: "I build fast, scalable, and modern web & mobile applications that convert visitors into clients.",
+  available: true,
+};
+
+const defaultSocial: SocialSettings = {
+  github: "https://github.com/AmirMehmood-dj",
+  linkedin: "https://www.linkedin.com/in/amirmehmood0325/",
+  email: "meharamir985@gmail.com",
+  whatsapp: "923018659791",
+};
+
 export default function Hero() {
+  const [imgError, setImgError] = useState(false);
+  const [hero, setHero] = useState<HeroSettings>(defaultHero);
+  const [social, setSocial] = useState<SocialSettings>(defaultSocial);
+
+  useEffect(() => {
+    fetch("/api/admin/settings/hero")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setHero(data); });
+    fetch("/api/admin/settings/social")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setSocial(data); });
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
       {/* Subtle background gradient */}
@@ -27,20 +59,22 @@ export default function Hero() {
       />
 
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
           {/* Content */}
           <div className="flex-1 text-center lg:text-left">
             {/* Badge */}
-            <motion.div
-              custom={0}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] text-sm font-medium mb-6"
-            >
-              <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
-              Available for Work
-            </motion.div>
+            {hero.available && (
+              <motion.div
+                custom={0}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#EFF6FF] border border-[#BFDBFE] text-[#2563EB] text-sm font-medium mb-6"
+              >
+                <span className="w-2 h-2 rounded-full bg-[#2563EB] animate-pulse" />
+                Available for Work
+              </motion.div>
+            )}
 
             {/* Heading */}
             <motion.h1
@@ -51,7 +85,7 @@ export default function Hero() {
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] leading-tight tracking-tight"
             >
               Hi, I&apos;m{" "}
-              <span className="text-[#2563EB]">Amir Mehar</span>
+              <span className="text-[#2563EB]">{hero.name}</span>
             </motion.h1>
 
             {/* Role */}
@@ -62,7 +96,7 @@ export default function Hero() {
               animate="visible"
               className="mt-4 text-lg sm:text-xl font-medium text-[#64748B]"
             >
-              Frontend Engineer · Mobile Developer · AI Prompt Engineer
+              {hero.role}
             </motion.p>
 
             {/* Tagline */}
@@ -73,8 +107,7 @@ export default function Hero() {
               animate="visible"
               className="mt-5 text-base sm:text-lg text-[#64748B] max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
-              I build fast, scalable, and modern web &amp; mobile applications
-              that convert visitors into clients.
+              {hero.tagline}
             </motion.p>
 
             {/* CTAs */}
@@ -83,7 +116,7 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3"
+              className="mt-8 flex flex-col xs:flex-row sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
             >
               <a
                 href="#contact"
@@ -114,55 +147,58 @@ export default function Hero() {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-8 flex items-center justify-center lg:justify-start gap-4"
+              className="mt-8 flex items-center justify-center lg:justify-start gap-4 flex-wrap"
             >
-              <a
-                href="https://github.com/amirmehar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors"
-              >
-                <Code2 size={16} />
-                GitHub
-              </a>
-              <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-              <a
-                href="https://linkedin.com/in/amirmehar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors"
-              >
-                <Link size={16} />
-                LinkedIn
-              </a>
-              <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-              <a
-                href="https://wa.me/923001234567"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors"
-              >
-                <MessageCircle size={16} />
-                WhatsApp
-              </a>
+              {social.github && (
+                <>
+                  <a href={social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
+                    <Code2 size={16} /> GitHub
+                  </a>
+                  <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
+                </>
+              )}
+              {social.linkedin && (
+                <>
+                  <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
+                    <Link size={16} /> LinkedIn
+                  </a>
+                  <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
+                </>
+              )}
+              {social.whatsapp && (
+                <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
+                  <MessageCircle size={16} /> WhatsApp
+                </a>
+              )}
             </motion.div>
           </div>
 
-          {/* Profile image placeholder */}
+          {/* Profile image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             className="relative flex-shrink-0"
           >
-            <div className="relative w-72 h-72 sm:w-80 sm:h-80">
+            <div className="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
               {/* Decorative ring */}
               <div className="absolute inset-0 rounded-full border-2 border-dashed border-[#BFDBFE] animate-[spin_30s_linear_infinite]" />
               {/* Outer glow */}
               <div className="absolute inset-4 rounded-full bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE]" />
               {/* Avatar container */}
               <div className="absolute inset-6 rounded-full bg-gradient-to-br from-[#2563EB] to-[#1D4ED8] flex items-center justify-center overflow-hidden shadow-2xl shadow-blue-200">
-                <span className="text-6xl font-bold text-white select-none">AM</span>
+                {imgError ? (
+                  <span className="text-6xl font-bold text-white select-none">AM</span>
+                ) : (
+                  <Image
+                    src="/profile.jpg"
+                    alt={hero.name}
+                    fill
+                    className="object-cover"
+                    onError={() => setImgError(true)}
+                    priority
+                  />
+                )}
               </div>
               {/* Badge: React */}
               <div className="absolute -top-2 -right-2 bg-white border border-[#E2E8F0] rounded-xl px-3 py-1.5 shadow-md text-xs font-semibold text-[#0F172A]">

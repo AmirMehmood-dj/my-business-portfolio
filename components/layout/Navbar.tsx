@@ -12,7 +12,6 @@ const navLinks = [
   { hash: "services", label: "Services" },
   { hash: "projects", label: "Projects" },
   { hash: "experience", label: "Experience" },
-  { hash: "blog", label: "Blog" },
   { hash: "contact", label: "Contact" },
 ];
 

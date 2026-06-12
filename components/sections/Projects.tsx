@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, Code2, Globe } from "lucide-react";
-import { projects } from "@/lib/data";
+import { ArrowRight, Globe } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 import type { Project } from "@/lib/types";
 
-const categories = ["All", "Web", "Mobile", "AI", "Business"] as const;
+const categories = ["All", "Websites", "Applications"] as const;
 type Category = (typeof categories)[number];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
@@ -19,10 +21,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       transition={{ delay: index * 0.07, duration: 0.35 }}
       className="group relative bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
     >
-      {/* Image */}
-      <div className="relative h-48 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] flex items-center justify-center overflow-hidden">
-        <Globe size={48} className="text-[#BFDBFE]" />
-        {/* Category badge */}
+      <div className="relative h-48 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] overflow-hidden">
+        {project.image ? (
+          <Image src={project.image} alt={project.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+            <Globe size={48} className="text-[#BFDBFE]" />
+          </div>
+        )}
         <span className="absolute top-3 right-3 px-2.5 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-[#2563EB] rounded-lg border border-[#BFDBFE]">
           {project.category}
         </span>
@@ -41,7 +47,6 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.description}
         </p>
 
-        {/* Tech stack */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.map((tech) => (
             <span
@@ -53,30 +58,14 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           ))}
         </div>
 
-        {/* Links */}
-        <div className="flex items-center gap-3 pt-3 border-t border-[#F1F5F9]">
-          {project.live_url && (
-            <a
-              href={project.live_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:text-[#1D4ED8] transition-colors"
-            >
-              <ExternalLink size={14} />
-              Live Demo
-            </a>
-          )}
-          {project.github_url && (
-            <a
-              href={project.github_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-sm font-medium text-[#64748B] hover:text-[#0F172A] transition-colors ml-auto"
-            >
-              <Code2 size={14} />
-              Code
-            </a>
-          )}
+        <div className="pt-3 border-t border-[#F1F5F9]">
+          <Link
+            href={`/projects/${project.id}`}
+            className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-[#EFF6FF] text-[#2563EB] text-sm font-medium rounded-xl hover:bg-[#2563EB] hover:text-white transition-all duration-200"
+          >
+            View Details
+            <ArrowRight size={14} />
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -85,6 +74,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 export default function Projects() {
   const [active, setActive] = useState<Category>("All");
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => { if (data) setProjects(data); });
+  }, []);
 
   const filtered =
     active === "All"
@@ -94,7 +92,6 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24 bg-[#F8FAFC]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -113,7 +110,6 @@ export default function Projects() {
           </p>
         </motion.div>
 
-        {/* Filter tabs */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -135,14 +131,19 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        {/* Grid */}
-        <motion.div layout className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
             ))}
           </AnimatePresence>
         </motion.div>
+
+        {projects.length === 0 && (
+          <p className="text-center text-[#94A3B8] text-sm py-12">
+            No projects yet.
+          </p>
+        )}
       </div>
     </section>
   );

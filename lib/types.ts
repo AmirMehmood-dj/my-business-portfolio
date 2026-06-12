@@ -3,24 +3,12 @@ export interface Project {
   title: string
   description: string
   image: string
+  images?: string[]
   tech: string[]
-  category: 'Web' | 'Mobile' | 'AI' | 'Business'
+  category: 'Websites' | 'Applications'
   live_url?: string
   github_url?: string
   featured: boolean
-  created_at: string
-}
-
-export interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  thumbnail: string
-  category: string
-  read_time: number
-  excerpt: string
-  content: string
-  published_at: string
   created_at: string
 }
 
@@ -46,22 +34,60 @@ export interface Contact {
 }
 
 export interface Skill {
+  id: string
   name: string
-  icon?: string
   category: 'Frontend' | 'Mobile' | 'Backend' | 'Tools' | 'AI'
+  order_index: number
+  created_at: string
 }
 
 export interface Service {
+  id: string
   title: string
   description: string
   icon: string
   features: string[]
+  order_index: number
+  created_at: string
 }
 
 export interface ExperienceItem {
+  id: string
   title: string
   company: string
   period: string
   description: string
   type: 'work' | 'freelance' | 'project'
+  order_index: number
+}
+
+export interface HeroSettings {
+  name: string
+  role: string
+  tagline: string
+  available: boolean
+}
+
+export interface AboutSettings {
+  bio1: string
+  bio2: string
+  values: string[]
+}
+
+export interface StatItem {
+  value: string
+  label: string
+}
+
+export interface BlogPost {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  category: string
+  read_time: string
+  published: boolean
+  published_at: string
+  created_at: string
 }

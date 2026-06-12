@@ -1,34 +1,43 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { skills } from "@/lib/data";
+import { Monitor, Smartphone, Server, Wrench, Sparkles } from "lucide-react";
+import type { Skill } from "@/lib/types";
 
-const categoryColors: Record<string, string> = {
-  Frontend: "bg-[#EFF6FF] text-[#2563EB] border-[#BFDBFE]",
-  Mobile: "bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0]",
-  Backend: "bg-[#FFF7ED] text-[#EA580C] border-[#FED7AA]",
-  Tools: "bg-[#F5F3FF] text-[#7C3AED] border-[#DDD6FE]",
-  AI: "bg-[#FFF1F2] text-[#E11D48] border-[#FECDD3]",
-};
-
-const categoryIcons: Record<string, string> = {
-  Frontend: "⚛️",
-  Mobile: "📱",
-  Backend: "🗄️",
-  Tools: "🛠️",
-  AI: "🤖",
-};
+const categories = [
+  { key: "Frontend", icon: Monitor,    label: "Frontend Development", span: "lg:col-span-2" },
+  { key: "Backend",  icon: Server,     label: "Backend & Database",   span: "lg:col-span-1" },
+  { key: "Mobile",   icon: Smartphone, label: "Mobile Development",   span: "lg:col-span-1" },
+  { key: "AI",       icon: Sparkles,   label: "AI & Automation",      span: "lg:col-span-1" },
+  { key: "Tools",    icon: Wrench,     label: "Dev Tools",            span: "lg:col-span-1" },
+];
 
 export default function Skills() {
+  const [skillsData, setSkillsData] = useState<Skill[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/skills")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setSkillsData(data); });
+  }, []);
+
+  const grouped: Record<string, Skill[]> = {};
+  for (const s of skillsData) {
+    if (!grouped[s.category]) grouped[s.category] = [];
+    grouped[s.category].push(s);
+  }
+
   return (
     <section id="skills" className="py-24 bg-[#F8FAFC]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
           <p className="text-sm font-medium text-[#2563EB] uppercase tracking-widest mb-3">
             Skills & Technologies
@@ -37,50 +46,61 @@ export default function Skills() {
             My technical toolkit
           </h2>
           <p className="mt-4 text-[#64748B] max-w-xl mx-auto">
-            Technologies I use to deliver exceptional products — from frontend
-            to mobile to AI integrations.
+            Technologies I use to deliver exceptional products — from websites
+            and apps to AI integrations.
           </p>
         </motion.div>
 
-        {/* Skills grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(skills).map(([category, items], categoryIndex) => (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1, duration: 0.4 }}
-              whileHover={{ y: -3, boxShadow: "0 16px 32px -8px rgba(0,0,0,0.07)" }}
-              className="bg-white rounded-2xl border border-[#E2E8F0] p-6 transition-colors duration-200"
-            >
-              {/* Category header */}
-              <div className="flex items-center gap-2 mb-5">
-                <span className="text-xl">{categoryIcons[category]}</span>
-                <h3 className="font-semibold text-[#0F172A]">{category}</h3>
-              </div>
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {categories.map(({ key, icon: Icon, label, span }, i) => {
+            const items = grouped[key] ?? [];
+            return (
+              <motion.div
+                key={key}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08, duration: 0.4 }}
+                className={`group bg-white rounded-2xl border border-[#E2E8F0] p-6 hover:border-[#BFDBFE] hover:shadow-lg hover:shadow-blue-50 hover:-translate-y-1 transition-all duration-300 ${span}`}
+              >
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-[#EFF6FF] group-hover:bg-[#2563EB] flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                    <Icon size={18} className="text-[#2563EB] group-hover:text-white transition-colors duration-300" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-[#0F172A] text-sm">{label}</p>
+                    <p className="text-xs text-[#94A3B8] mt-0.5">{items.length} technologies</p>
+                  </div>
+                </div>
 
-              {/* Skill tags */}
-              <div className="flex flex-wrap gap-2">
-                {items.map((skill, i) => (
-                  <motion.span
-                    key={skill.name}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{
-                      delay: categoryIndex * 0.1 + i * 0.05,
-                      duration: 0.3,
-                    }}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-lg border ${categoryColors[category]}`}
-                  >
-                    {skill.name}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          ))}
+                {/* Divider */}
+                <div className="h-px bg-[#F1F5F9] mb-5" />
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2">
+                  {items.map((skill, j) => (
+                    <motion.span
+                      key={skill.id}
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.08 + j * 0.04 }}
+                      className="px-3 py-1.5 text-xs font-medium text-[#374151] bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg hover:bg-[#EFF6FF] hover:border-[#BFDBFE] hover:text-[#2563EB] transition-all duration-150 cursor-default"
+                    >
+                      {skill.name}
+                    </motion.span>
+                  ))}
+                  {items.length === 0 && (
+                    <span className="text-xs text-[#CBD5E1]">No skills added yet</span>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
       </div>
     </section>
   );

@@ -1,0 +1,21 @@
+{
+  "name": "Aamir Mehmood — Website & Application Developer",
+  "short_name": "Aamir Mehmood",
+  "description": "Freelance Website & Application Developer from Pakistan specializing in React, Next.js, React Native, and AI integrations.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563EB",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

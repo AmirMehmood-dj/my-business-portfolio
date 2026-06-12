@@ -1,16 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Briefcase, Code, Star } from "lucide-react";
-import { experience } from "@/lib/data";
+import type { ExperienceItem } from "@/lib/types";
 
 const typeConfig = {
-  work: { icon: Briefcase, color: "text-[#2563EB]", bg: "bg-[#EFF6FF]", badge: "Work" },
-  freelance: { icon: Star, color: "text-[#7C3AED]", bg: "bg-[#F5F3FF]", badge: "Freelance" },
-  project: { icon: Code, color: "text-[#16A34A]", bg: "bg-[#F0FDF4]", badge: "Project" },
+  work:      { icon: Briefcase, color: "text-[#2563EB]", bg: "bg-[#EFF6FF]", badge: "Work" },
+  freelance: { icon: Star,      color: "text-[#7C3AED]", bg: "bg-[#F5F3FF]", badge: "Freelance" },
+  project:   { icon: Code,      color: "text-[#16A34A]", bg: "bg-[#F0FDF4]", badge: "Project" },
 };
 
 export default function Experience() {
+  const [experience, setExperience] = useState<ExperienceItem[]>([]);
+
+  useEffect(() => {
+    fetch("/api/admin/experience")
+      .then(r => r.ok ? r.json() : null)
+      .then(data => { if (data) setExperience(data); });
+  }, []);
+
   return (
     <section id="experience" className="py-24 bg-white">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,7 +37,7 @@ export default function Experience() {
             My journey
           </h2>
           <p className="mt-4 text-[#64748B] max-w-xl mx-auto">
-            5+ years of building real-world products, from freelance projects to
+            3+ years of building real-world products, from freelance projects to
             full-time engineering roles.
           </p>
         </motion.div>
@@ -40,21 +49,21 @@ export default function Experience() {
 
           <div className="space-y-8">
             {experience.map((item, i) => {
-              const config = typeConfig[item.type];
+              const config = typeConfig[item.type] ?? typeConfig.work;
               const Icon = config.icon;
 
               return (
                 <motion.div
-                  key={i}
+                  key={item.id}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
-                  className="sm:pl-16 relative"
+                  className="pl-0 sm:pl-16 relative"
                 >
                   {/* Timeline dot */}
                   <div
-                    className={`absolute left-0 top-5 hidden sm:flex w-12 h-12 rounded-full ${config.bg} items-center justify-center border-4 border-white shadow-sm`}
+                    className={`absolute left-0 top-4 hidden sm:flex w-12 h-12 rounded-full ${config.bg} items-center justify-center border-4 border-white shadow-sm`}
                   >
                     <Icon size={18} className={config.color} />
                   </div>
@@ -88,6 +97,9 @@ export default function Experience() {
                 </motion.div>
               );
             })}
+            {experience.length === 0 && (
+              <p className="text-center text-[#94A3B8] text-sm py-12">No experience entries yet.</p>
+            )}
           </div>
         </div>
       </div>

@@ -1,10 +1,12 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Clock, ArrowRight, BookOpen } from "lucide-react";
 import Link from "next/link";
-import { blogPosts } from "@/lib/data";
+import { supabase } from "@/lib/supabase";
 import { formatDate } from "@/lib/utils";
+import type { BlogPost } from "@/lib/types";
 
 const categoryColors: Record<string, string> = {
   "Next.js": "bg-[#F0FDF4] text-[#16A34A] border-[#BBF7D0]",
@@ -13,10 +15,22 @@ const categoryColors: Record<string, string> = {
 };
 
 export default function BlogSection() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+
+  useEffect(() => {
+    supabase
+      .from("blogs")
+      .select("*")
+      .order("published_at", { ascending: false })
+      .limit(3)
+      .then(({ data }) => { if (data) setPosts(data); });
+  }, []);
+
+  if (posts.length === 0) return null;
+
   return (
     <section id="blog" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,9 +57,8 @@ export default function BlogSection() {
           </Link>
         </motion.div>
 
-        {/* Cards grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogPosts.map((post, i) => (
+          {posts.map((post, i) => (
             <motion.article
               key={post.id}
               initial={{ opacity: 0, y: 24 }}
@@ -55,7 +68,6 @@ export default function BlogSection() {
               whileHover={{ y: -4, boxShadow: "0 16px 32px -8px rgba(0,0,0,0.07)" }}
               className="group bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] transition-colors duration-200"
             >
-              {/* Thumbnail placeholder */}
               <div className="relative h-44 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] flex items-center justify-center overflow-hidden">
                 <BookOpen size={36} className="text-[#BFDBFE]" />
                 <span

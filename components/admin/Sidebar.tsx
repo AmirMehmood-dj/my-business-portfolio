@@ -2,30 +2,45 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   FolderOpen,
-  FileText,
   MessageSquare,
   Inbox,
   LogOut,
+  ExternalLink,
   Menu,
   X,
   ChevronRight,
+  Settings2,
+  Sparkles,
+  Layers,
+  Briefcase,
 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/projects", label: "Projects", icon: FolderOpen },
-  { href: "/admin/blogs", label: "Blog Posts", icon: FileText },
+  { href: "/admin/experience", label: "Experience", icon: Briefcase },
+  { href: "/admin/skills", label: "Skills", icon: Sparkles },
+  { href: "/admin/services", label: "Services", icon: Layers },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquare },
   { href: "/admin/contacts", label: "Contacts", icon: Inbox },
+  { href: "/admin/settings", label: "Site Settings", icon: Settings2 },
 ];
 
 export default function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    await fetch("/api/admin/logout", { method: "POST" });
+    router.push("/admin/login");
+  }
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -63,14 +78,22 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Bottom */}
-      <div className="px-3 py-4 border-t border-[#E2E8F0]">
+      <div className="px-3 py-4 border-t border-[#E2E8F0] space-y-1">
         <Link
           href="/"
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#64748B] hover:bg-[#FFF1F2] hover:text-red-500 transition-all"
+          target="_blank"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#64748B] hover:bg-[#F8FAFC] hover:text-[#0F172A] transition-all"
+        >
+          <ExternalLink size={17} />
+          View Portfolio
+        </Link>
+        <button
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[#64748B] hover:bg-[#FFF1F2] hover:text-red-500 transition-all"
         >
           <LogOut size={17} />
-          Back to Portfolio
-        </Link>
+          Sign Out
+        </button>
       </div>
     </div>
   );

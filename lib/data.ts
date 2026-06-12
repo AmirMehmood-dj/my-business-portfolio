@@ -1,4 +1,4 @@
-import type { Project, BlogPost, Testimonial, Skill, Service, ExperienceItem } from './types'
+import type { Project, Testimonial } from './types'
 
 export const projects: Project[] = [
   {
@@ -7,7 +7,7 @@ export const projects: Project[] = [
     description: 'A full-featured analytics dashboard with real-time data visualization, user management, and subscription billing integration.',
     image: '/projects/dashboard.jpg',
     tech: ['Next.js', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Chart.js'],
-    category: 'Web',
+    category: 'Websites',
     live_url: '#',
     github_url: '#',
     featured: true,
@@ -19,7 +19,7 @@ export const projects: Project[] = [
     description: 'Cross-platform mobile app with smooth product browsing, cart management, and secure payment processing.',
     image: '/projects/ecommerce.jpg',
     tech: ['React Native', 'Expo', 'Supabase', 'Stripe'],
-    category: 'Mobile',
+    category: 'Applications',
     live_url: '#',
     github_url: '#',
     featured: true,
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     description: 'An intelligent content generation platform powered by AI with custom prompt templates and bulk export.',
     image: '/projects/ai-content.jpg',
     tech: ['Next.js', 'OpenAI API', 'Tailwind CSS', 'Supabase'],
-    category: 'AI',
+    category: 'Websites',
     live_url: '#',
     github_url: '#',
     featured: true,
@@ -43,7 +43,7 @@ export const projects: Project[] = [
     description: 'Property listing and management platform with advanced search filters, map integration, and agent portal.',
     image: '/projects/realestate.jpg',
     tech: ['Next.js', 'TypeScript', 'PostgreSQL', 'Google Maps API'],
-    category: 'Business',
+    category: 'Websites',
     live_url: '#',
     github_url: '#',
     featured: false,
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     description: 'Mobile fitness app with workout plans, progress tracking, nutrition logging, and social features.',
     image: '/projects/fitness.jpg',
     tech: ['React Native', 'Expo', 'Firebase', 'Redux'],
-    category: 'Mobile',
+    category: 'Applications',
     live_url: '#',
     github_url: '#',
     featured: false,
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     description: 'Enterprise chatbot solution with custom training, multi-language support, and seamless CRM integration.',
     image: '/projects/chatbot.jpg',
     tech: ['Next.js', 'LangChain', 'OpenAI', 'Supabase', 'TypeScript'],
-    category: 'AI',
+    category: 'Websites',
     live_url: '#',
     github_url: '#',
     featured: false,
@@ -75,44 +75,6 @@ export const projects: Project[] = [
   },
 ]
 
-export const blogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Building Scalable React Applications with Next.js 15',
-    slug: 'building-scalable-react-applications-nextjs-15',
-    thumbnail: '/blog/nextjs.jpg',
-    category: 'Next.js',
-    read_time: 8,
-    excerpt: 'Explore the latest features in Next.js 15 and how to leverage them for building production-ready applications.',
-    content: '',
-    published_at: '2024-12-10',
-    created_at: '2024-12-10',
-  },
-  {
-    id: '2',
-    title: 'Mastering Tailwind CSS: Advanced Patterns and Best Practices',
-    slug: 'mastering-tailwind-css-advanced-patterns',
-    thumbnail: '/blog/tailwind.jpg',
-    category: 'CSS',
-    read_time: 6,
-    excerpt: 'Deep dive into advanced Tailwind CSS techniques that will elevate your UI development workflow.',
-    content: '',
-    published_at: '2024-11-25',
-    created_at: '2024-11-25',
-  },
-  {
-    id: '3',
-    title: 'AI Prompt Engineering: A Developer\'s Guide',
-    slug: 'ai-prompt-engineering-developers-guide',
-    thumbnail: '/blog/ai.jpg',
-    category: 'AI',
-    read_time: 10,
-    excerpt: 'Learn the art of crafting effective prompts to get the best results from AI language models in your projects.',
-    content: '',
-    published_at: '2024-11-10',
-    created_at: '2024-11-10',
-  },
-]
 
 export const testimonials: Testimonial[] = [
   {
@@ -144,7 +106,7 @@ export const testimonials: Testimonial[] = [
   },
 ]
 
-export const skills: Record<string, Skill[]> = {
+export const skills: Record<string, { name: string; category: string }[]> = {
   Frontend: [
     { name: 'React', category: 'Frontend' },
     { name: 'Next.js', category: 'Frontend' },
@@ -181,7 +143,7 @@ export const skills: Record<string, Skill[]> = {
   ],
 }
 
-export const services: Service[] = [
+export const services: { title: string; description: string; icon: string; features: string[] }[] = [
   {
     title: 'Web Development',
     description: 'Building fast, scalable, and SEO-optimized web applications using modern technologies like Next.js, React, and TypeScript.',
@@ -214,19 +176,19 @@ export const services: Service[] = [
   },
 ]
 
-export const experience: ExperienceItem[] = [
+export const experience: { title: string; company: string; period: string; description: string; type: string }[] = [
   {
-    title: 'Senior Frontend Engineer',
+    title: 'Full-Stack & Mobile Developer',
     company: 'Freelance / Remote',
     period: '2022 – Present',
-    description: 'Delivering high-quality web and mobile solutions for clients worldwide. Specializing in React, Next.js, and React Native with a focus on performance and user experience.',
+    description: 'Delivering high-quality websites, web applications, and mobile solutions for clients worldwide. Specializing in React, Next.js, Node.js and React Native with a focus on performance and user experience.',
     type: 'freelance',
   },
   {
-    title: 'Frontend Developer',
+    title: 'Website & Application Developer',
     company: 'TechSolutions Ltd.',
     period: '2020 – 2022',
-    description: 'Led frontend development for multiple SaaS products, implemented design systems, and mentored junior developers. Reduced page load times by 35% through optimization strategies.',
+    description: 'Led development of multiple SaaS products end-to-end, implemented design systems, and mentored junior developers. Reduced page load times by 35% through optimization strategies.',
     type: 'work',
   },
   {
@@ -246,7 +208,7 @@ export const experience: ExperienceItem[] = [
 ]
 
 export const stats = [
-  { value: '5+', label: 'Years Experience' },
+  { value: '3+', label: 'Years Experience' },
   { value: '50+', label: 'Projects Completed' },
   { value: '30+', label: 'Happy Clients' },
   { value: '15+', label: 'Technologies' },
