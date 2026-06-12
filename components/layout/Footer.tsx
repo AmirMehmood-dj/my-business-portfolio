@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Code2, Link, Mail, MessageCircle } from "lucide-react";
+import Logo from "./Logo";
 
 type SocialSettings = { github: string; linkedin: string; email: string; whatsapp: string };
 
@@ -55,12 +56,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <p className="font-semibold text-lg text-[#0F172A]">
-              Amir<span className="text-[#2563EB]">.</span>
-            </p>
-            <p className="text-sm text-[#94A3B8] mt-1">
-              Website & Application Developer · AI Prompt Engineer
-            </p>
+            <Logo />
           </motion.div>
 
           {/* Nav links */}
