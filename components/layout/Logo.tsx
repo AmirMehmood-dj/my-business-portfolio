@@ -30,12 +30,9 @@ export default function Logo({ className = "" }: { className?: string }) {
       </div>
 
       {/* Wordmark */}
-      <div className="flex flex-col leading-none">
+      <div className="flex items-center leading-none">
         <span className="text-[15px] font-bold text-[#0F172A] tracking-tight group-hover:text-[#2563EB] transition-colors duration-200">
           Aamir <span className="text-[#2563EB]">Mehmood</span>
-        </span>
-        <span className="text-[9px] font-medium text-[#94A3B8] tracking-widest uppercase mt-0.5">
-          Developer · AI Engineer
         </span>
       </div>
     </Link>
