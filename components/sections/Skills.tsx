@@ -58,10 +58,10 @@ export default function Skills() {
             return (
               <motion.div
                 key={key}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
                 className={`group bg-white rounded-2xl border border-[#E2E8F0] p-6 hover:border-[#BFDBFE] hover:shadow-lg hover:shadow-blue-50 hover:-translate-y-1 transition-all duration-300 ${span}`}
               >
                 {/* Header */}
@@ -80,17 +80,13 @@ export default function Skills() {
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
-                  {items.map((skill, j) => (
-                    <motion.span
+                  {items.map((skill) => (
+                    <span
                       key={skill.id}
-                      initial={{ opacity: 0, scale: 0.92 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.08 + j * 0.04 }}
                       className="px-3 py-1.5 text-xs font-medium text-[#374151] bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg hover:bg-[#EFF6FF] hover:border-[#BFDBFE] hover:text-[#2563EB] transition-all duration-150 cursor-default"
                     >
                       {skill.name}
-                    </motion.span>
+                    </span>
                   ))}
                   {items.length === 0 && (
                     <span className="text-xs text-[#CBD5E1]">No skills added yet</span>

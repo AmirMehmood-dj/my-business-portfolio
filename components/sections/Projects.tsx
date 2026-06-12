@@ -14,11 +14,10 @@ type Category = (typeof categories)[number];
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ delay: index * 0.07, duration: 0.35 }}
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: index * 0.05, duration: 0.35 }}
       className="group relative bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
     >
       <div className="relative h-48 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] overflow-hidden">
@@ -131,13 +130,13 @@ export default function Projects() {
           ))}
         </motion.div>
 
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-          <AnimatePresence mode="popLayout">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+          <AnimatePresence mode="sync">
             {filtered.map((project, i) => (
               <ProjectCard key={project.id} project={project} index={i} />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </div>
 
         {projects.length === 0 && (
           <p className="text-center text-[#94A3B8] text-sm py-12">

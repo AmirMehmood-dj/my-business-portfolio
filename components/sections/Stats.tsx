@@ -63,7 +63,7 @@ export default function Stats() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
                 className="text-center"
               >
                 <p className="text-3xl sm:text-4xl font-bold text-[#0F172A]">

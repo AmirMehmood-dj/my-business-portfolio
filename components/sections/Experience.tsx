@@ -55,10 +55,10 @@ export default function Experience() {
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{ delay: i * 0.06, duration: 0.4 }}
                   className="pl-0 sm:pl-16 relative"
                 >
                   {/* Timeline dot */}

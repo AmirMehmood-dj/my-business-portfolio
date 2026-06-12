@@ -44,12 +44,11 @@ export default function Testimonials() {
           {testimonials.map((t, i) => (
             <motion.div
               key={t.id}
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              whileHover={{ y: -4, boxShadow: "0 16px 32px -8px rgba(0,0,0,0.08)" }}
-              className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] transition-colors duration-300"
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.06, duration: 0.4 }}
+              className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] hover:shadow-lg hover:border-[#BFDBFE] transition-all duration-300"
             >
               <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
 

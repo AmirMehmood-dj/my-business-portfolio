@@ -9,11 +9,11 @@ import type { HeroSettings } from "@/lib/types";
 type SocialSettings = { github: string; linkedin: string; email: string; whatsapp: string };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 16 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" as const },
+    transition: { delay: i * 0.07, duration: 0.4, ease: "easeOut" as const },
   }),
 };
 
@@ -217,7 +217,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 0.8 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
       >
         <span className="text-xs text-[#94A3B8]">Scroll down</span>

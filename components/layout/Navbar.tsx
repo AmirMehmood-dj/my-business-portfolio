@@ -49,34 +49,26 @@ export default function Navbar() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map((link, i) => (
-              <motion.a
+            {navLinks.map((link) => (
+              <a
                 key={link.hash}
                 href={href(link.hash)}
-                initial={{ opacity: 0, y: -8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 + i * 0.05, duration: 0.3 }}
                 className="px-3 py-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors rounded-md hover:bg-[#F8FAFC]"
               >
                 {link.label}
-              </motion.a>
+              </a>
             ))}
           </nav>
 
           {/* CTA */}
-          <motion.div
-            className="hidden md:flex items-center gap-3"
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.3 }}
-          >
+          <div className="hidden md:flex items-center gap-3">
             <a
               href={href("contact")}
               className="px-4 py-2 text-sm font-medium bg-[#2563EB] text-white rounded-lg hover:bg-[#1D4ED8] transition-colors"
             >
               Hire Me
             </a>
-          </motion.div>
+          </div>
 
           {/* Mobile toggle */}
           <button
@@ -115,25 +107,22 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
-            className="md:hidden bg-white border-b border-[#E2E8F0] overflow-hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-white border-b border-[#E2E8F0]"
           >
             <nav className="px-4 py-3 flex flex-col gap-1">
-              {navLinks.map((link, i) => (
-                <motion.a
+              {navLinks.map((link) => (
+                <a
                   key={link.hash}
                   href={href(link.hash)}
                   onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.04, duration: 0.2 }}
                   className="px-3 py-2.5 text-sm text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] rounded-md transition-colors"
                 >
                   {link.label}
-                </motion.a>
+                </a>
               ))}
               <a
                 href={href("contact")}

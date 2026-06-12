@@ -54,11 +54,10 @@ export default function Services() {
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                whileHover={{ y: -4 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
                 className="group relative p-6 rounded-2xl border border-[#E2E8F0] bg-white hover:border-[#2563EB] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 cursor-default"
               >
                 {/* Icon */}

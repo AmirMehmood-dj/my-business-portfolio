@@ -87,10 +87,10 @@ export default function About() {
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Left: text */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4 }}
           >
             <p className="text-[#64748B] leading-relaxed mb-6">{about.bio1}</p>
             <p className="text-[#64748B] leading-relaxed mb-8">{about.bio2}</p>
@@ -113,11 +113,10 @@ export default function About() {
             {highlights.map((item, i) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08, duration: 0.4 }}
-                whileHover={{ y: -2 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ delay: i * 0.06, duration: 0.4 }}
                 className={`p-5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#BFDBFE] hover:bg-[#EFF6FF] transition-colors group ${
                   i === 4 ? "sm:col-span-2" : ""
                 }`}

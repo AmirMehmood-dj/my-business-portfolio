@@ -115,9 +115,10 @@ export default function Contact() {
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Contact info */}
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4 }}
             className="md:col-span-1 lg:col-span-2 space-y-6"
           >
             <div>
@@ -171,9 +172,10 @@ export default function Contact() {
 
           {/* Form */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ delay: 0.1, duration: 0.4 }}
             className="md:col-span-1 lg:col-span-3"
           >
             {submitted ? (
