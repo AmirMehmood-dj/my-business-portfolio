@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Globe, Smartphone, Palette, TrendingUp, Cpu, Code2, Layers, Zap, ArrowRight } from "lucide-react";
+import { Globe, Smartphone, Palette, TrendingUp, Cpu, Code2, Layers, Zap, ArrowRight, DollarSign } from "lucide-react";
 import type { Service } from "@/lib/types";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -68,9 +68,17 @@ export default function Services() {
                   />
                 </div>
 
-                <h3 className="font-semibold text-[#0F172A] text-lg mb-2">
-                  {service.title}
-                </h3>
+                <div className="flex items-start justify-between mb-2">
+                  <h3 className="font-semibold text-[#0F172A] text-lg">
+                    {service.title}
+                  </h3>
+                  {service.price && (
+                    <span className="flex items-center gap-1 px-2.5 py-1 bg-[#F0FDF4] text-[#16A34A] text-xs font-semibold rounded-lg border border-[#BBF7D0] whitespace-nowrap ml-2 flex-shrink-0">
+                      <DollarSign size={11} />
+                      {service.price}
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-[#64748B] leading-relaxed mb-5">
                   {service.description}
                 </p>

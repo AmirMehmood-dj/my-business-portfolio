@@ -47,6 +47,7 @@ export interface Service {
   description: string
   icon: string
   features: string[]
+  price?: string
   order_index: number
   created_at: string
 }

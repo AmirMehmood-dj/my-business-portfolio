@@ -8,7 +8,7 @@ const ICONS = ["Globe", "Smartphone", "Palette", "TrendingUp", "Cpu", "Code2", "
 const inputCls = "w-full px-4 py-2.5 text-sm border border-[#E2E8F0] rounded-xl outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE] transition-all";
 const labelCls = "block text-sm font-medium text-[#0F172A] mb-1.5";
 
-const empty: Omit<Service, "id" | "created_at"> = { title: "", description: "", icon: "Globe", features: [], order_index: 0 };
+const empty: Omit<Service, "id" | "created_at"> = { title: "", description: "", icon: "Globe", features: [], price: "", order_index: 0 };
 
 export default function AdminServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
@@ -33,7 +33,7 @@ export default function AdminServicesPage() {
   }
 
   function openEdit(s: Service) {
-    setForm({ title: s.title, description: s.description, icon: s.icon, features: s.features, order_index: s.order_index });
+    setForm({ title: s.title, description: s.description, icon: s.icon, features: s.features, price: s.price ?? "", order_index: s.order_index });
     setFeaturesText((s.features ?? []).join("\n"));
     setModal({ open: true, editing: s });
   }
@@ -135,6 +135,10 @@ export default function AdminServicesPage() {
               <div>
                 <label className={labelCls}>Features <span className="text-[#94A3B8] font-normal">(one per line)</span></label>
                 <textarea className={inputCls} rows={5} value={featuresText} onChange={e => setFeaturesText(e.target.value)} placeholder={"Feature 1\nFeature 2\n..."} />
+              </div>
+              <div>
+                <label className={labelCls}>Price Range <span className="text-[#94A3B8] font-normal">(e.g. Starting $300)</span></label>
+                <input className={inputCls} value={form.price ?? ""} onChange={e => setForm({ ...form, price: e.target.value })} placeholder="Starting $300" />
               </div>
               <div>
                 <label className={labelCls}>Order</label>
