@@ -31,13 +31,13 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center justify-between mb-3">
           <span className="px-2.5 py-1 text-xs font-medium bg-[#EFF6FF] text-[#2563EB] rounded-lg border border-[#BFDBFE]">
             {project.category}
           </span>
           {project.featured && (
-            <span className="px-2.5 py-1 text-xs font-medium bg-[#2563EB] text-white rounded-lg">
-              Featured
+            <span className="px-2.5 py-1 text-xs font-medium bg-[#FFFBEB] text-[#D97706] rounded-lg border border-[#FCD34D]">
+              ⭐ Featured
             </span>
           )}
         </div>
