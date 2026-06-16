@@ -18,7 +18,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ delay: index * 0.05, duration: 0.35 }}
-      className="group relative bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300"
+      className="group relative bg-white rounded-2xl border border-[#E2E8F0] overflow-hidden hover:border-[#BFDBFE] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 flex flex-col"
     >
       <div className="relative h-48 bg-gradient-to-br from-[#EFF6FF] to-[#DBEAFE] overflow-hidden">
         {project.image ? (
@@ -38,26 +38,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         )}
       </div>
 
-      <div className="p-5">
+      <div className="p-5 flex flex-col flex-1">
         <h3 className="font-semibold text-[#0F172A] text-base mb-2 group-hover:text-[#2563EB] transition-colors">
           {project.title}
         </h3>
-        <p className="text-sm text-[#64748B] leading-relaxed mb-4 line-clamp-3">
+        <p className="text-sm text-[#64748B] leading-relaxed line-clamp-3 flex-1">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.tech.map((tech) => (
-            <span
-              key={tech}
-              className="px-2 py-0.5 text-xs bg-[#F8FAFC] text-[#64748B] rounded-md border border-[#E2E8F0]"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        <div className="pt-3 border-t border-[#F1F5F9]">
+        <div className="pt-4 mt-4 border-t border-[#F1F5F9]">
           <Link
             href={`/projects/${project.id}`}
             className="flex items-center justify-center gap-2 w-full px-4 py-2.5 bg-[#EFF6FF] text-[#2563EB] text-sm font-medium rounded-xl hover:bg-[#2563EB] hover:text-white transition-all duration-200"
