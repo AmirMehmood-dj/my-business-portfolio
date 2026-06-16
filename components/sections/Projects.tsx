@@ -28,17 +28,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             <Globe size={48} className="text-[#BFDBFE]" />
           </div>
         )}
-        <span className="absolute top-3 right-3 px-2.5 py-1 text-xs font-medium bg-white/90 backdrop-blur-sm text-[#2563EB] rounded-lg border border-[#BFDBFE]">
-          {project.category}
-        </span>
-        {project.featured && (
-          <span className="absolute top-3 left-3 px-2.5 py-1 text-xs font-medium bg-[#2563EB] text-white rounded-lg">
-            Featured
-          </span>
-        )}
       </div>
 
       <div className="p-5 flex flex-col flex-1">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="px-2.5 py-1 text-xs font-medium bg-[#EFF6FF] text-[#2563EB] rounded-lg border border-[#BFDBFE]">
+            {project.category}
+          </span>
+          {project.featured && (
+            <span className="px-2.5 py-1 text-xs font-medium bg-[#2563EB] text-white rounded-lg">
+              Featured
+            </span>
+          )}
+        </div>
         <h3 className="font-semibold text-[#0F172A] text-base mb-2 group-hover:text-[#2563EB] transition-colors">
           {project.title}
         </h3>
