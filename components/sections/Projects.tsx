@@ -42,7 +42,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <h3 className="font-semibold text-[#0F172A] text-base mb-2 group-hover:text-[#2563EB] transition-colors">
           {project.title}
         </h3>
-        <p className="text-sm text-[#64748B] leading-relaxed mb-4">
+        <p className="text-sm text-[#64748B] leading-relaxed mb-4 line-clamp-3">
           {project.description}
         </p>
 
