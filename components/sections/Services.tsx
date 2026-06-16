@@ -60,6 +60,14 @@ export default function Services() {
                 transition={{ delay: i * 0.06, duration: 0.4 }}
                 className="group relative p-6 rounded-2xl border border-[#E2E8F0] bg-white hover:border-[#2563EB] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 cursor-default"
               >
+                {/* Price badge - top right corner */}
+                {service.price && (
+                  <span className="absolute top-4 right-4 flex items-center gap-1 px-2.5 py-1 bg-[#F0FDF4] text-[#16A34A] text-xs font-semibold rounded-lg border border-[#BBF7D0]">
+                    <DollarSign size={11} />
+                    {service.price}
+                  </span>
+                )}
+
                 {/* Icon */}
                 <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center mb-5 group-hover:bg-[#2563EB] transition-colors duration-300">
                   <Icon
@@ -68,17 +76,9 @@ export default function Services() {
                   />
                 </div>
 
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-[#0F172A] text-lg">
-                    {service.title}
-                  </h3>
-                  {service.price && (
-                    <span className="flex items-center gap-1 px-2.5 py-1 bg-[#F0FDF4] text-[#16A34A] text-xs font-semibold rounded-lg border border-[#BBF7D0] whitespace-nowrap ml-2 flex-shrink-0">
-                      <DollarSign size={11} />
-                      {service.price}
-                    </span>
-                  )}
-                </div>
+                <h3 className="font-semibold text-[#0F172A] text-lg mb-2">
+                  {service.title}
+                </h3>
                 <p className="text-sm text-[#64748B] leading-relaxed mb-5">
                   {service.description}
                 </p>
