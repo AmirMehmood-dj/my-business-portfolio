@@ -62,7 +62,7 @@ export default function Services() {
               >
                 {/* Price badge - top right corner */}
                 {service.price && (
-                  <span className="absolute top-4 right-4 flex items-center gap-1 px-2.5 py-1 bg-[#F0FDF4] text-[#16A34A] text-xs font-semibold rounded-lg border border-[#BBF7D0]">
+                  <span className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white text-xs font-bold rounded-xl shadow-md shadow-green-200">
                     <DollarSign size={11} />
                     {service.price}
                   </span>
