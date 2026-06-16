@@ -93,13 +93,20 @@ export default function Services() {
                   ))}
                 </ul>
 
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => {
+                    sessionStorage.setItem("selectedService", JSON.stringify({
+                      title: service.title,
+                      description: service.description,
+                      price: service.price ?? "",
+                    }));
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
                   className="inline-flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:gap-2.5 transition-all duration-200"
                 >
-                  Get a quote
+                  Let&apos;s Talk
                   <ArrowRight size={14} />
-                </a>
+                </button>
               </motion.div>
             );
           })}

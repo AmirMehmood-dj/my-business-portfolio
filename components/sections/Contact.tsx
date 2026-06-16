@@ -45,10 +45,13 @@ const contactInfo = [
   },
 ];
 
+type SelectedService = { title: string; description: string; price: string };
+
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedService, setSelectedService] = useState<SelectedService | null>(null);
 
   // Auto-reset success state after 6 seconds
   useEffect(() => {
@@ -62,13 +65,30 @@ export default function Contact() {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormData>();
+
+  // Read service from sessionStorage
+  useEffect(() => {
+    const raw = sessionStorage.getItem("selectedService");
+    if (!raw) return;
+    try {
+      const service: SelectedService = JSON.parse(raw);
+      setSelectedService(service);
+      setValue("budget", "Freelance project");
+      setValue("message", `Hi Amir, I'm interested in your "${service.title}" service${service.price ? ` (${service.price})` : ""}.\n\n`);
+      sessionStorage.removeItem("selectedService");
+    } catch {}
+  }, [setValue]);
 
   async function onSubmit(data: FormData) {
     setLoading(true);
     setError(null);
     try {
-      const payload = { name: data.name, email: data.email, subject: data.budget, message: data.message };
+      const serviceInfo = selectedService
+        ? `\n\n---\nService Interested In: ${selectedService.title}${selectedService.price ? ` (${selectedService.price})` : ""}\nService Description: ${selectedService.description}`
+        : "";
+      const payload = { name: data.name, email: data.email, subject: data.budget, message: data.message + serviceInfo };
       const [formspreeRes] = await Promise.all([
         fetch("https://formspree.io/f/xgobnwjr", {
           method: "POST",
@@ -202,6 +222,16 @@ export default function Contact() {
                 onSubmit={handleSubmit(onSubmit)}
                 className="bg-white rounded-2xl border border-[#E2E8F0] p-6 sm:p-8 space-y-5"
               >
+                {/* Selected service banner */}
+                {selectedService && (
+                  <div className="flex items-center gap-3 px-4 py-3 bg-[#EFF6FF] border border-[#BFDBFE] rounded-xl">
+                    <span className="text-[#2563EB] text-lg">💼</span>
+                    <div>
+                      <p className="text-xs text-[#64748B]">Enquiring about</p>
+                      <p className="text-sm font-semibold text-[#0F172A]">{selectedService.title}{selectedService.price ? ` — ${selectedService.price}` : ""}</p>
+                    </div>
+                  </div>
+                )}
                 {/* Name & Email */}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
