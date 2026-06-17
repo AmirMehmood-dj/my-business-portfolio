@@ -120,21 +120,21 @@ export default function Hero() {
             >
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#2563EB] text-white font-medium rounded-xl hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#2563EB] text-white font-medium rounded-full hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5"
               >
                 Hire Me
                 <ArrowRight size={16} />
               </a>
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0F172A] font-medium rounded-xl border border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-[#0F172A] font-medium rounded-full border border-[#E2E8F0] hover:border-[#2563EB] hover:text-[#2563EB] transition-all duration-200 hover:-translate-y-0.5"
               >
                 View Projects
               </a>
               <a
                 href="/cv.pdf"
                 download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[#F8FAFC] text-[#64748B] font-medium rounded-xl border border-[#E2E8F0] hover:bg-[#F1F5F9] transition-all duration-200 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-[#F8FAFC] text-[#64748B] font-medium rounded-full border border-[#E2E8F0] hover:bg-[#F1F5F9] transition-all duration-200 hover:-translate-y-0.5"
               >
                 <Download size={16} />
                 Download CV
