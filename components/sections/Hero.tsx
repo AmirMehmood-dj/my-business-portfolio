@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Code2, Link, MessageCircle } from "lucide-react";
 import Image from "next/image";
@@ -17,6 +17,23 @@ const fadeUp = {
   }),
 };
 
+const roles = [
+  "Website Developer",
+  "Mobile App Developer",
+  "React & Next.js Expert",
+  "AI Prompt Engineer",
+  "Full Stack Developer",
+];
+
+const techStack = [
+  { name: "React", color: "#61DAFB", bg: "#E8F9FD" },
+  { name: "Next.js", color: "#0F172A", bg: "#F1F5F9" },
+  { name: "TypeScript", color: "#3178C6", bg: "#EFF6FF" },
+  { name: "Node.js", color: "#339933", bg: "#F0FDF4" },
+  { name: "React Native", color: "#7C3AED", bg: "#F5F3FF" },
+  { name: "Tailwind", color: "#0EA5E9", bg: "#F0F9FF" },
+];
+
 const defaultHero: HeroSettings = {
   name: "Aamir Mehmood",
   role: "Website & Application Developer · AI Prompt Engineer",
@@ -30,6 +47,37 @@ const defaultSocial: SocialSettings = {
   email: "meharamir985@gmail.com",
   whatsapp: "923018659791",
 };
+
+function TypingEffect() {
+  const [displayed, setDisplayed] = useState("");
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const current = roles[roleIndex];
+
+    if (!isDeleting && displayed === current) {
+      timeoutRef.current = setTimeout(() => setIsDeleting(true), 2000);
+    } else if (isDeleting && displayed === "") {
+      setIsDeleting(false);
+      setRoleIndex((i) => (i + 1) % roles.length);
+    } else {
+      timeoutRef.current = setTimeout(() => {
+        setDisplayed(isDeleting ? current.slice(0, displayed.length - 1) : current.slice(0, displayed.length + 1));
+      }, isDeleting ? 40 : 80);
+    }
+
+    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
+  }, [displayed, isDeleting, roleIndex]);
+
+  return (
+    <span className="text-[#2563EB]">
+      {displayed}
+      <span className="animate-pulse">|</span>
+    </span>
+  );
+}
 
 export default function Hero() {
   const [imgError, setImgError] = useState(false);
@@ -88,15 +136,15 @@ export default function Hero() {
               <span className="text-[#2563EB]">{hero.name}</span>
             </motion.h1>
 
-            {/* Role */}
+            {/* Typing Role */}
             <motion.p
               custom={2}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-4 text-lg sm:text-xl font-medium text-[#64748B]"
+              className="mt-4 text-lg sm:text-xl font-medium text-[#64748B] min-h-[1.75rem]"
             >
-              {hero.role}
+              I&apos;m a <TypingEffect />
             </motion.p>
 
             {/* Tagline */}
@@ -141,13 +189,36 @@ export default function Hero() {
               </a>
             </motion.div>
 
-            {/* Social links */}
+            {/* Tech Stack */}
             <motion.div
               custom={5}
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-8 flex items-center justify-center lg:justify-start gap-4 flex-wrap"
+              className="mt-6"
+            >
+              <p className="text-xs text-[#94A3B8] uppercase tracking-widest mb-3 text-center lg:text-left">Tech Stack</p>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                {techStack.map((tech) => (
+                  <span
+                    key={tech.name}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border border-[#E2E8F0] shadow-sm"
+                    style={{ backgroundColor: tech.bg, color: tech.color }}
+                  >
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: tech.color }} />
+                    {tech.name}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Social links */}
+            <motion.div
+              custom={6}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mt-6 flex items-center justify-center lg:justify-start gap-4 flex-wrap"
             >
               {social.github && (
                 <>
