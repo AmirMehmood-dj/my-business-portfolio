@@ -102,7 +102,7 @@ export default function Services() {
                     }));
                     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#2563EB] hover:gap-2.5 transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 w-full px-5 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-200 hover:-translate-y-0.5"
                 >
                   Let&apos;s Talk
                   <ArrowRight size={14} />
