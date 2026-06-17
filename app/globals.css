@@ -34,6 +34,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a, button, [role="button"], select {
+  cursor: pointer;
+}
+
 ::selection {
   background: #DBEAFE;
   color: #1E40AF;
