@@ -309,7 +309,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#2563EB] text-white font-medium rounded-full hover:bg-[#1D4ED8] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-200"
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[#2563EB] text-white font-medium rounded-full hover:bg-[#1D4ED8] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer shadow-md shadow-blue-200 hover:shadow-lg hover:shadow-blue-200"
                 >
                   {loading ? (
                     <>
