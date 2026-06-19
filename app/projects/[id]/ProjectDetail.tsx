@@ -94,13 +94,11 @@ export default function ProjectDetail({ id }: { id: string }) {
         {/* Image gallery */}
         {allImages.length > 0 && (
           <div className="mb-10">
-            <div className="relative rounded-2xl overflow-hidden border border-[#E2E8F0] bg-[#F1F5F9] mb-3 max-h-[260px] sm:max-h-[380px] lg:max-h-[480px] aspect-video">
-              <Image
+            <div className="rounded-2xl overflow-hidden border border-[#E2E8F0] bg-[#F1F5F9] mb-3">
+              <img
                 src={allImages[activeImg]}
                 alt={`${project.title} screenshot ${activeImg + 1}`}
-                fill
-                className="object-contain"
-                sizes="(max-width: 768px) 100vw, 800px"
+                className="w-full h-auto block"
               />
             </div>
             {allImages.length > 1 && (
