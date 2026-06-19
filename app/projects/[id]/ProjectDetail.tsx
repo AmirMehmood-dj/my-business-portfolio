@@ -132,7 +132,7 @@ export default function ProjectDetail({ id }: { id: string }) {
           <div className="md:col-span-2">
             <div className="bg-white rounded-2xl border border-[#E2E8F0] p-4 sm:p-6">
               <h2 className="text-base font-semibold text-[#0F172A] mb-3">About this project</h2>
-              <p className="text-[#475569] leading-relaxed">{project.description}</p>
+              <p className="text-[#475569] leading-relaxed whitespace-pre-wrap">{project.description}</p>
             </div>
           </div>
 
