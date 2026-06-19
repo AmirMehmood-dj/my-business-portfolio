@@ -99,7 +99,7 @@ export default function ProjectDetail({ id }: { id: string }) {
                 src={allImages[activeImg]}
                 alt={`${project.title} screenshot ${activeImg + 1}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="(max-width: 768px) 100vw, 800px"
               />
             </div>
