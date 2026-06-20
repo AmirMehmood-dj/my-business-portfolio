@@ -149,23 +149,44 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible"
-              className="mt-6 lg:mt-8 flex flex-col items-center lg:items-start justify-center lg:justify-start gap-3 w-full"
+              className="mt-6 lg:mt-8 w-full"
             >
-              <a href="#contact"
-                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40 hover:-translate-y-0.5"
-              >
-                Hire Me <ArrowRight size={16} />
-              </a>
-              <div className="flex gap-3 w-full sm:w-auto">
+              {/* Mobile layout */}
+              <div className="flex flex-col gap-3 sm:hidden">
+                <a href="#contact"
+                  className="inline-flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40"
+                >
+                  Hire Me <ArrowRight size={16} />
+                </a>
+                <div className="flex gap-3">
+                  <a href="#projects"
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 transition-all duration-200 backdrop-blur-sm"
+                  >
+                    View Projects
+                  </a>
+                  <a href="/cv.pdf" download
+                    className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-white/5 text-[#94A3B8] font-medium rounded-full border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200 backdrop-blur-sm"
+                  >
+                    <Download size={16} /> CV
+                  </a>
+                </div>
+              </div>
+              {/* Desktop layout */}
+              <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                <a href="#contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40 hover:-translate-y-0.5"
+                >
+                  Hire Me <ArrowRight size={16} />
+                </a>
                 <a href="#projects"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
                 >
                   View Projects
                 </a>
                 <a href="/cv.pdf" download
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 text-[#94A3B8] font-medium rounded-full border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 text-[#94A3B8] font-medium rounded-full border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
                 >
-                  <Download size={16} /> CV
+                  <Download size={16} /> Download CV
                 </a>
               </div>
             </motion.div>
