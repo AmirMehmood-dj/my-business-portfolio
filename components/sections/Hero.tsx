@@ -261,7 +261,7 @@ export default function Hero() {
                 className="absolute top-1/2 -right-4 sm:-right-12 -translate-y-1/2 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold text-white hidden sm:block"
               >
                 <Sparkles size={10} className="inline mr-1" />
-                20+ Projects
+                30+ Projects
               </motion.div>
             </div>
           </motion.div>
