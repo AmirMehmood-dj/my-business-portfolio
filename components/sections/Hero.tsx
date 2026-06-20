@@ -171,7 +171,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Tech stack */}
-            <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="mt-8">
+            <motion.div custom={5} variants={fadeUp} initial="hidden" animate="visible" className="mt-8 hidden sm:block">
               <p className="text-xs text-[#475569] uppercase tracking-widest mb-3 text-center lg:text-left">Tech Stack</p>
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2">
                 {techStack.map((tech) => (
