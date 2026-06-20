@@ -80,7 +80,7 @@ export default function About() {
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               {stats.map((s) => (
                 <div key={s.label} className="p-4 rounded-xl bg-white/5 border border-white/10 text-center backdrop-blur-sm">
                   <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] to-[#A78BFA]">{s.value}</p>
@@ -104,7 +104,7 @@ export default function About() {
           </motion.div>
 
           {/* ── Right: highlights grid ── */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {highlights.map((item, i) => (
               <motion.div
                 key={item.title}
@@ -112,7 +112,7 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: i * 0.07, duration: 0.4 }}
-                className={`p-5 rounded-xl border border-white/10 bg-white/5 hover:border-[#3B82F6]/40 hover:bg-white/10 transition-all duration-300 group backdrop-blur-sm${i === 4 ? " col-span-2" : ""}`}
+                className={`p-5 rounded-xl border border-white/10 bg-white/5 hover:border-[#3B82F6]/40 hover:bg-white/10 transition-all duration-300 group backdrop-blur-sm${i === 4 ? " sm:col-span-2" : ""}`}
               >
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1E3A8A]/60 to-[#4C1D95]/40 flex items-center justify-center mb-4 group-hover:from-[#2563EB]/50 group-hover:to-[#7C3AED]/50 transition-all duration-300">
                   <item.icon size={18} className="text-[#60A5FA]" />

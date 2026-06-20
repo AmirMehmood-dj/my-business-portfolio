@@ -149,7 +149,7 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible"
-              className="mt-8 flex flex-col xs:flex-row sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+              className="mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
             >
               <a href="#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40 hover:-translate-y-0.5"
@@ -217,7 +217,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                className="absolute -top-2 -right-4 bg-[#0F172A] border border-[#1E3A8A] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold text-white backdrop-blur-sm"
+                className="absolute -top-2 -right-2 sm:-right-4 bg-[#0F172A] border border-[#1E3A8A] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold text-white backdrop-blur-sm"
               >
                 ⚛️ React
               </motion.div>
@@ -226,7 +226,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 0.5 }}
-                className="absolute -bottom-2 -left-4 bg-white text-[#0F172A] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold"
+                className="absolute -bottom-2 -left-2 sm:-left-4 bg-white text-[#0F172A] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold"
               >
                 Next.js ▲
               </motion.div>
@@ -235,7 +235,7 @@ export default function Hero() {
               <motion.div
                 animate={{ y: [0, -5, 0] }}
                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 1 }}
-                className="absolute top-1/2 -right-12 -translate-y-1/2 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold text-white"
+                className="absolute top-1/2 -right-4 sm:-right-12 -translate-y-1/2 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] rounded-xl px-3 py-1.5 shadow-lg text-xs font-semibold text-white hidden sm:block"
               >
                 <Sparkles size={10} className="inline mr-1" />
                 20+ Projects
