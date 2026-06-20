@@ -222,6 +222,17 @@ export default function Testimonials() {
         {/* Mobile: swipe carousel */}
         <div className="sm:hidden">
           <MobileSwipeCarousel items={displayed} />
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white text-sm font-semibold rounded-full shadow-lg shadow-blue-900/30 hover:opacity-90 transition-all duration-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              Add Review
+            </button>
+          </div>
         </div>
 
         {/* Tablet & Desktop: auto-scroll slider */}
@@ -261,10 +272,10 @@ export default function Testimonials() {
         )}
       </div>
 
-      {/* Floating Add Review button */}
+      {/* Floating Add Review button — hidden on mobile */}
       <a
         onClick={() => setShowModal(true)}
-        className="fixed bottom-6 left-6 z-50 flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] hover:opacity-90 text-white text-sm font-semibold rounded-full shadow-lg shadow-blue-900/40 transition-all duration-200 cursor-pointer select-none"
+        className="fixed bottom-6 left-6 z-50 hidden sm:flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] hover:opacity-90 text-white text-sm font-semibold rounded-full shadow-lg shadow-blue-900/40 transition-all duration-200 cursor-pointer select-none"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
