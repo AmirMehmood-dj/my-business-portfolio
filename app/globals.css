@@ -43,18 +43,14 @@ a, button, [role="button"], select {
   color: #1E40AF;
 }
 
+/* Hide scrollbar but keep scroll functional */
 ::-webkit-scrollbar {
-  width: 5px;
+  display: none;
 }
-::-webkit-scrollbar-track {
-  background: #F1F5F9;
-}
-::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @keyframes btn-wiggle {
