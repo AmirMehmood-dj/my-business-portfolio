@@ -63,8 +63,12 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" className="py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" className="py-24 bg-[#040B1A] relative overflow-hidden">
+      {/* Background glow */}
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-[#1E3A8A] opacity-10 blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-[#4C1D95] opacity-10 blur-[100px] pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,13 +76,13 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-medium text-[#2563EB] uppercase tracking-widest mb-3">
+          <p className="text-sm font-medium text-[#60A5FA] uppercase tracking-widest mb-3">
             About Me
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#0F172A]">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white">
             Passionate engineer, pragmatic builder
           </h2>
-          <p className="mt-4 text-[#64748B] max-w-2xl mx-auto text-lg">
+          <p className="mt-4 text-[#94A3B8] max-w-2xl mx-auto text-lg">
             I specialize in turning complex requirements into elegant, scalable
             solutions — from pixel-perfect UIs to robust mobile apps.
           </p>
@@ -92,17 +96,17 @@ export default function About() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4 }}
           >
-            <p className="text-[#64748B] leading-relaxed mb-6">{about.bio1}</p>
-            <p className="text-[#64748B] leading-relaxed mb-8">{about.bio2}</p>
+            <p className="text-[#94A3B8] leading-relaxed mb-6">{about.bio1}</p>
+            <p className="text-[#94A3B8] leading-relaxed mb-8">{about.bio2}</p>
 
-            <p className="text-sm font-semibold text-[#0F172A] mb-4 uppercase tracking-wide">
+            <p className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">
               What I bring to every project
             </p>
             <div className="grid grid-cols-2 gap-3">
               {(about.values ?? []).map((v) => (
                 <div key={v} className="flex items-center gap-2">
-                  <CheckCircle2 size={16} className="text-[#2563EB] flex-shrink-0" />
-                  <span className="text-sm text-[#64748B]">{v}</span>
+                  <CheckCircle2 size={16} className="text-[#60A5FA] flex-shrink-0" />
+                  <span className="text-sm text-[#94A3B8]">{v}</span>
                 </div>
               ))}
             </div>
@@ -117,14 +121,14 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ delay: i * 0.06, duration: 0.4 }}
-                className={`p-5 rounded-xl border border-[#E2E8F0] bg-[#F8FAFC] hover:border-[#BFDBFE] hover:bg-[#EFF6FF] transition-colors group ${
+                className={`p-5 rounded-xl border border-white/10 bg-white/5 hover:border-[#3B82F6]/40 hover:bg-white/10 transition-colors group backdrop-blur-sm ${
                   i === 4 ? "sm:col-span-2" : ""
                 }`}
               >
-                <div className="w-10 h-10 rounded-lg bg-[#EFF6FF] flex items-center justify-center mb-3 group-hover:bg-[#DBEAFE] transition-colors">
-                  <item.icon size={20} className="text-[#2563EB]" />
+                <div className="w-10 h-10 rounded-lg bg-[#1E3A8A]/50 flex items-center justify-center mb-3 group-hover:bg-[#2563EB]/30 transition-colors">
+                  <item.icon size={20} className="text-[#60A5FA]" />
                 </div>
-                <h3 className="font-semibold text-[#0F172A] mb-1 text-sm">
+                <h3 className="font-semibold text-white mb-1 text-sm">
                   {item.title}
                 </h3>
                 <p className="text-xs text-[#64748B] leading-relaxed">{item.desc}</p>
