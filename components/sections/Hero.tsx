@@ -212,36 +212,6 @@ export default function Hero() {
               </div>
             </motion.div>
 
-            {/* Social links */}
-            <motion.div
-              custom={6}
-              variants={fadeUp}
-              initial="hidden"
-              animate="visible"
-              className="mt-6 flex items-center justify-center lg:justify-start gap-4 flex-wrap"
-            >
-              {social.github && (
-                <>
-                  <a href={social.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
-                    <Code2 size={16} /> GitHub
-                  </a>
-                  <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-                </>
-              )}
-              {social.linkedin && (
-                <>
-                  <a href={social.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
-                    <Link size={16} /> LinkedIn
-                  </a>
-                  <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-                </>
-              )}
-              {social.whatsapp && (
-                <a href={`https://wa.me/${social.whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors">
-                  <MessageCircle size={16} /> WhatsApp
-                </a>
-              )}
-            </motion.div>
           </div>
 
           {/* Profile image */}
