@@ -65,7 +65,7 @@ const defaultTestimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] w-[calc(33.333vw-24px)] flex-shrink-0 mx-3">
+    <div className="testimonial-card relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex-shrink-0 mx-3">
       <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
 
       <div className="flex gap-1 mb-4">
@@ -124,27 +124,33 @@ export default function Testimonials() {
             testament to my work.
           </p>
         </motion.div>
-      </div>
 
-      <div className="overflow-hidden">
-        <div
-          className="flex"
-          style={{
-            animation: "testimonial-scroll 30s linear infinite",
-          }}
-        >
-          {doubled.map((t, i) => (
-            <TestimonialCard key={`${t.id}-${i}`} t={t} />
-          ))}
+        <div className="overflow-hidden testimonial-slider-wrap">
+          <div
+            className="flex"
+            style={{
+              animation: "testimonial-scroll 30s linear infinite",
+            }}
+          >
+            {doubled.map((t, i) => (
+              <TestimonialCard key={`${t.id}-${i}`} t={t} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      <style>{`
-        @keyframes testimonial-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
+        <style>{`
+          @keyframes testimonial-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .testimonial-slider-wrap {
+            container-type: inline-size;
+          }
+          .testimonial-card {
+            width: calc(33.333cqi - 1.5rem);
+          }
+        `}</style>
+      </div>
     </section>
   );
 }
