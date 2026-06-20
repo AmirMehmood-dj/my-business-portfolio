@@ -166,13 +166,6 @@ export default function Testimonials() {
             <span className="text-sm text-[#64748B]">out of 5 · {displayed.length} reviews</span>
           </div>
 
-          <br />
-          <button
-            onClick={() => setShowModal(true)}
-            className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200"
-          >
-            Write a Review
-          </button>
         </motion.div>
 
         {useSlider ? (
@@ -219,6 +212,17 @@ export default function Testimonials() {
         )}
       </div>
 
+      {/* Floating Add Review button */}
+      <a
+        onClick={() => setShowModal(true)}
+        className="fixed bottom-6 left-6 z-50 flex items-center gap-2 px-4 py-3 bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-sm font-semibold rounded-full shadow-lg transition-all duration-200 cursor-pointer select-none"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+        </svg>
+        Add Review
+      </a>
+
       <AnimatePresence>
         {showModal && (
           <>
@@ -226,7 +230,7 @@ export default function Testimonials() {
             <motion.div initial={{ opacity: 0, scale: 0.96, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
               <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-xl w-full max-w-md p-6">
                 <div className="flex items-center justify-between mb-6">
-                  <h2 className="font-semibold text-[#0F172A] text-lg">Write a Review</h2>
+                  <h2 className="font-semibold text-[#0F172A] text-lg">Add Review</h2>
                   <button onClick={closeModal} className="p-1.5 rounded-lg text-[#94A3B8] hover:bg-[#F8FAFC]"><X size={18} /></button>
                 </div>
 
