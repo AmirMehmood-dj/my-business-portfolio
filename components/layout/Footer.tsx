@@ -126,7 +126,7 @@ export default function Footer() {
           className="mt-8 pt-6 border-t border-[#E2E8F0] text-center"
         >
           <p className="text-sm text-[#94A3B8]">
-            © {year} Aamir Mehmood. All rights reserved.
+            © 2024 Aamir Mehmood. All rights reserved.
           </p>
         </motion.div>
       </div>
