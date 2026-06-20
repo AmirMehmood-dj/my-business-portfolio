@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, X, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -71,26 +71,73 @@ const defaultTestimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="testimonial-card relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex-shrink-0 mx-3 flex flex-col">
+    <div className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex flex-col h-full">
       <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
-
       <div className="flex gap-1 mb-4">
         {Array.from({ length: t.rating }).map((_, j) => (
           <Star key={j} size={14} className="text-[#F59E0B] fill-[#F59E0B]" />
         ))}
       </div>
-
       <p className="text-sm text-[#475569] leading-relaxed flex-1">
         &ldquo;{t.feedback}&rdquo;
       </p>
-
       <div className="flex items-center gap-3 pt-4 mt-6 border-t border-[#F1F5F9]">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center flex-shrink-0">
-          <span className="text-sm font-semibold text-white">
-            {t.name.charAt(0)}
-          </span>
+          <span className="text-sm font-semibold text-white">{t.name.charAt(0)}</span>
         </div>
         <p className="font-semibold text-sm text-[#0F172A]">{t.name}</p>
+      </div>
+    </div>
+  );
+}
+
+function MobileSwipeCarousel({ items }: { items: Testimonial[] }) {
+  const [current, setCurrent] = useState(0);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.targetTouches[0].clientX;
+  }
+
+  function onTouchEnd(e: React.TouchEvent) {
+    touchEndX.current = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) setCurrent((i) => (i + 1) % items.length);
+      else setCurrent((i) => (i - 1 + items.length) % items.length);
+    }
+  }
+
+  return (
+    <div
+      className="relative"
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={current}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.25 }}
+        >
+          <TestimonialCard t={items[current]} />
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-5">
+        {items.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className={`w-2 h-2 rounded-full transition-all duration-200 ${
+              i === current ? "bg-[#2563EB] w-5" : "bg-[#CBD5E1]"
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
@@ -133,7 +180,6 @@ export default function Testimonials() {
     setForm({ name: "", feedback: "", rating: 5 });
   }
 
-  // Use real reviews only if there are enough to fill the slider without obvious repetition
   const useSlider = testimonials.length === 0 || testimonials.length >= 4;
   const displayed = useSlider
     ? (testimonials.length > 0 ? testimonials : defaultTestimonials)
@@ -171,17 +217,24 @@ export default function Testimonials() {
             <span className="text-xl font-bold text-[#0F172A]">{avgRating}</span>
             <span className="text-sm text-[#64748B]">out of 5 · {displayed.length} reviews</span>
           </div>
-
         </motion.div>
 
+        {/* Mobile: swipe carousel */}
+        <div className="sm:hidden">
+          <MobileSwipeCarousel items={displayed} />
+        </div>
+
+        {/* Tablet & Desktop: auto-scroll slider */}
         {useSlider ? (
           <>
-            <div className="relative overflow-hidden testimonial-slider-wrap">
-              <div className="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
+            <div className="hidden sm:block relative overflow-hidden testimonial-slider-wrap">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-16 lg:w-32 z-10 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-16 lg:w-32 z-10 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
               <div className="flex" style={{ animation: "testimonial-scroll 30s linear infinite" }}>
                 {doubled.map((t, i) => (
-                  <TestimonialCard key={`${t.id}-${i}`} t={t} />
+                  <div key={`${t.id}-${i}`} className="testimonial-card flex-shrink-0 mx-3">
+                    <TestimonialCard t={t} />
+                  </div>
                 ))}
               </div>
             </div>
@@ -191,33 +244,17 @@ export default function Testimonials() {
                 100% { transform: translateX(-50%); }
               }
               .testimonial-slider-wrap { container-type: inline-size; }
-              .testimonial-card { width: calc(100cqi - 2rem); align-self: stretch; }
-              .testimonial-slider-wrap > div { align-items: stretch; }
-              @container (min-width: 640px) {
-                .testimonial-card { width: calc(50cqi - 1.5rem); }
-              }
+              .testimonial-card { width: calc(50cqi - 1.5rem); align-self: stretch; }
               @container (min-width: 1024px) {
                 .testimonial-card { width: calc(33.333cqi - 1.5rem); }
               }
             `}</style>
           </>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
+          <div className="hidden sm:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {displayed.map((t) => (
-              <div key={t.id} className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex flex-col">
-                <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} size={14} className="text-[#F59E0B] fill-[#F59E0B]" />
-                  ))}
-                </div>
-                <p className="text-sm text-[#475569] leading-relaxed flex-1">&ldquo;{t.feedback}&rdquo;</p>
-                <div className="flex items-center gap-3 pt-4 mt-6 border-t border-[#F1F5F9]">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center flex-shrink-0">
-                    <span className="text-sm font-semibold text-white">{t.name.charAt(0)}</span>
-                  </div>
-                  <p className="font-semibold text-sm text-[#0F172A]">{t.name}</p>
-                </div>
+              <div key={t.id} className="flex flex-col">
+                <TestimonialCard t={t} />
               </div>
             ))}
           </div>
