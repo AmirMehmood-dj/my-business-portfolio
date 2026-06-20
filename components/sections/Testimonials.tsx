@@ -134,6 +134,7 @@ export default function Testimonials() {
     : testimonials;
   const repeated = displayed.length >= 6 ? displayed : Array.from({ length: Math.ceil(6 / displayed.length) }, () => displayed).flat();
   const doubled = [...repeated, ...repeated];
+  const avgRating = (displayed.reduce((sum, t) => sum + t.rating, 0) / displayed.length).toFixed(1);
 
   return (
     <section id="testimonials" className="py-24 bg-[#F8FAFC]">
@@ -154,6 +155,18 @@ export default function Testimonials() {
             Real feedback from real clients — their success is the best
             testament to my work.
           </p>
+
+          <div className="mt-6 inline-flex items-center gap-3 px-5 py-3 bg-white rounded-2xl border border-[#E2E8F0] shadow-sm">
+            <div className="flex gap-0.5">
+              {[1,2,3,4,5].map((s) => (
+                <Star key={s} size={16} className="text-[#F59E0B] fill-[#F59E0B]" />
+              ))}
+            </div>
+            <span className="text-xl font-bold text-[#0F172A]">{avgRating}</span>
+            <span className="text-sm text-[#64748B]">out of 5 · {displayed.length} reviews</span>
+          </div>
+
+          <br />
           <button
             onClick={() => setShowModal(true)}
             className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200"
