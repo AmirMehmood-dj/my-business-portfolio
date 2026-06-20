@@ -66,7 +66,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <a
               href={href("contact")}
-              className="px-4 py-2 text-sm font-medium bg-[#2563EB] text-white rounded-full hover:bg-[#1D4ED8] transition-colors "
+              className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/30"
             >
               Hire Me
             </a>
@@ -131,7 +131,7 @@ export default function Navbar() {
               <a
                 href={href("contact")}
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 px-4 py-2.5 text-sm font-medium bg-[#2563EB] text-white rounded-full text-center hover:bg-[#1D4ED8] transition-colors "
+                className="mt-2 px-4 py-2.5 text-sm font-semibold bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white rounded-full text-center hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/30"
               >
                 Hire Me
               </a>
