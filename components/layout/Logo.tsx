@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Logo({ className = "" }: { className?: string }) {
+export default function Logo({ className = "", dark = false }: { className?: string; dark?: boolean }) {
   return (
     <Link href="/" className={`inline-flex items-center gap-2.5 group ${className}`}>
       {/* Icon mark */}
@@ -31,7 +31,7 @@ export default function Logo({ className = "" }: { className?: string }) {
 
       {/* Wordmark */}
       <div className="flex items-center leading-none">
-        <span className="text-[15px] font-bold text-[#0F172A] tracking-tight group-hover:text-[#2563EB] transition-colors duration-200">
+        <span className={`text-[15px] font-bold tracking-tight transition-colors duration-200 ${dark ? "text-white group-hover:text-[#93C5FD]" : "text-[#0F172A] group-hover:text-[#2563EB]"}`}>
           Aamir <span className="text-[#2563EB]">Mehmood</span>
         </span>
       </div>
