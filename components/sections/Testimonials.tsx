@@ -177,7 +177,9 @@ export default function Testimonials() {
 
         {useSlider ? (
           <>
-            <div className="overflow-hidden testimonial-slider-wrap">
+            <div className="relative overflow-hidden testimonial-slider-wrap">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-[#F8FAFC] to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-32 z-10 bg-gradient-to-l from-[#F8FAFC] to-transparent" />
               <div className="flex" style={{ animation: "testimonial-scroll 30s linear infinite" }}>
                 {doubled.map((t, i) => (
                   <TestimonialCard key={`${t.id}-${i}`} t={t} />
