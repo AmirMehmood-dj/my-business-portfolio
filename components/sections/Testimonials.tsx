@@ -191,8 +191,14 @@ export default function Testimonials() {
                 100% { transform: translateX(-50%); }
               }
               .testimonial-slider-wrap { container-type: inline-size; }
-              .testimonial-card { width: calc(33.333cqi - 1.5rem); align-self: stretch; }
+              .testimonial-card { width: calc(100cqi - 2rem); align-self: stretch; }
               .testimonial-slider-wrap > div { align-items: stretch; }
+              @container (min-width: 640px) {
+                .testimonial-card { width: calc(50cqi - 1.5rem); }
+              }
+              @container (min-width: 1024px) {
+                .testimonial-card { width: calc(33.333cqi - 1.5rem); }
+              }
             `}</style>
           </>
         ) : (
