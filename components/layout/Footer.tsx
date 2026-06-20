@@ -45,9 +45,12 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="border-t border-[#E2E8F0] bg-[#F8FAFC]"
+      className="bg-[#040B1A] border-t border-white/10 relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] rounded-full bg-[#1E3A8A] opacity-10 blur-[80px] pointer-events-none" />
+
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col sm:flex-row flex-wrap items-center justify-between gap-6">
           {/* Brand */}
           <motion.div
@@ -56,7 +59,7 @@ export default function Footer() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <Logo />
+            <Logo dark />
           </motion.div>
 
           {/* Nav links */}
@@ -71,7 +74,7 @@ export default function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-sm text-[#64748B] hover:text-[#2563EB] transition-colors"
+                className="text-sm text-[#475569] hover:text-[#60A5FA] transition-colors"
               >
                 {link.label}
               </a>
@@ -103,12 +106,12 @@ export default function Footer() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   style={{
-                    color: isHovered ? hoverColor : "#64748B",
-                    borderColor: isHovered ? hoverColor : "#E2E8F0",
+                    color: isHovered ? hoverColor : "#475569",
+                    borderColor: isHovered ? hoverColor : "rgba(255,255,255,0.1)",
                     transition: "color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease",
                     boxShadow: isHovered ? `0 4px 16px -4px ${hoverColor}40` : "none",
                   }}
-                  className="flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl border bg-white"
+                  className="flex flex-col items-center gap-1.5 px-3 py-2.5 rounded-xl border bg-white/5 backdrop-blur-sm"
                 >
                   <Icon size={18} />
                   <span className="text-[10px] font-medium">{label}</span>
@@ -123,9 +126,9 @@ export default function Footer() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.3 }}
-          className="mt-8 pt-6 border-t border-[#E2E8F0] text-center"
+          className="mt-8 pt-6 border-t border-white/10 text-center"
         >
-          <p className="text-sm text-[#94A3B8]">
+          <p className="text-sm text-[#475569]">
             © 2024 Aamir Mehmood. All rights reserved.
           </p>
         </motion.div>
