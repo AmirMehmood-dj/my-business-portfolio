@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Globe, Smartphone, Palette, TrendingUp, Cpu, Code2, Layers, Zap, ArrowRight, DollarSign } from "lucide-react";
+import { Globe, Smartphone, Palette, TrendingUp, Cpu, Code2, Layers, Zap, ArrowRight } from "lucide-react";
 import type { Service } from "@/lib/types";
 
 const iconMap: Record<string, React.ElementType> = {
@@ -60,13 +60,6 @@ export default function Services() {
                 transition={{ delay: i * 0.06, duration: 0.4 }}
                 className="group relative p-6 rounded-2xl border border-[#E2E8F0] bg-white hover:border-[#2563EB] hover:shadow-xl hover:shadow-blue-50 transition-all duration-300 cursor-default"
               >
-                {/* Price badge - top right corner */}
-                {service.price && (
-                  <span className="absolute top-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-[#16A34A] to-[#15803D] text-white text-xs font-bold rounded-xl shadow-md shadow-green-200">
-                    <DollarSign size={11} />
-                    {service.price}
-                  </span>
-                )}
 
                 {/* Icon */}
                 <div className="w-12 h-12 rounded-xl bg-[#EFF6FF] flex items-center justify-center mb-5 group-hover:bg-[#2563EB] transition-colors duration-300">
