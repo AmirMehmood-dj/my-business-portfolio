@@ -65,7 +65,7 @@ const defaultTestimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="testimonial-card relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex-shrink-0 mx-3">
+    <div className="testimonial-card relative p-6 bg-white rounded-2xl border border-[#E2E8F0] flex-shrink-0 mx-3 flex flex-col">
       <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
 
       <div className="flex gap-1 mb-4">
@@ -74,11 +74,11 @@ function TestimonialCard({ t }: { t: Testimonial }) {
         ))}
       </div>
 
-      <p className="text-sm text-[#475569] leading-relaxed mb-6">
+      <p className="text-sm text-[#475569] leading-relaxed flex-1">
         &ldquo;{t.feedback}&rdquo;
       </p>
 
-      <div className="flex items-center gap-3 pt-4 border-t border-[#F1F5F9]">
+      <div className="flex items-center gap-3 pt-4 mt-6 border-t border-[#F1F5F9]">
         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center flex-shrink-0">
           <span className="text-sm font-semibold text-white">
             {t.name.charAt(0)}
@@ -148,6 +148,10 @@ export default function Testimonials() {
           }
           .testimonial-card {
             width: calc(33.333cqi - 1.5rem);
+            align-self: stretch;
+          }
+          .testimonial-slider-wrap > div {
+            align-items: stretch;
           }
         `}</style>
       </div>
