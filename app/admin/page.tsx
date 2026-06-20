@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import {
-  FolderOpen, FileText, MessageSquare, Inbox,
+  FolderOpen, MessageSquare, Inbox,
   CheckCircle2, Clock, Star, TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
@@ -18,12 +18,8 @@ async function getCounts() {
   startOfMonth.setDate(1);
   startOfMonth.setHours(0, 0, 0, 0);
 
-  const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0);
-
   const [
     { count: projects },
-    { count: blogs },
     { count: testimonials },
     { count: contacts },
     { count: newLeads },
@@ -32,7 +28,6 @@ async function getCounts() {
     { count: featuredProjects },
   ] = await Promise.all([
     supabase.from("projects").select("*", { count: "exact", head: true }),
-    supabase.from("blogs").select("*", { count: "exact", head: true }),
     supabase.from("testimonials").select("*", { count: "exact", head: true }),
     supabase.from("contacts").select("*", { count: "exact", head: true }),
     supabase.from("contacts").select("*", { count: "exact", head: true }).eq("status", "new"),
@@ -47,7 +42,6 @@ async function getCounts() {
 
   return {
     projects: projects ?? 0,
-    blogs: blogs ?? 0,
     testimonials: testimonials ?? 0,
     contacts: totalContacts,
     newLeads: newLeads ?? 0,
@@ -76,7 +70,6 @@ const statusColors: Record<string, string> = {
   replied: "bg-[#F0FDF4] text-[#16A34A]",
 };
 
-
 export default async function AdminDashboard() {
   const [counts, recentContacts] = await Promise.all([getCounts(), getRecentContacts()]);
 
@@ -89,7 +82,6 @@ export default async function AdminDashboard() {
 
   const statsCards = [
     { label: "Total Projects", value: counts.projects, icon: FolderOpen, color: "text-[#2563EB]", bg: "bg-[#EFF6FF]", href: "/admin/projects" },
-    { label: "Blog Posts", value: counts.blogs, icon: FileText, color: "text-[#7C3AED]", bg: "bg-[#F5F3FF]", href: "/admin/blogs" },
     { label: "Testimonials", value: counts.testimonials, icon: MessageSquare, color: "text-[#16A34A]", bg: "bg-[#F0FDF4]", href: "/admin/testimonials" },
     { label: "New Leads", value: counts.newLeads, icon: Inbox, color: "text-[#EA580C]", bg: "bg-[#FFF7ED]", href: "/admin/contacts" },
   ];
@@ -101,7 +93,7 @@ export default async function AdminDashboard() {
         <p className="text-sm text-[#64748B] mt-1">Welcome back, Amir. Here&apos;s an overview.</p>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {statsCards.map((card) => {
           const Icon = card.icon;
           return (
