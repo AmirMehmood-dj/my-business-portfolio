@@ -128,7 +128,8 @@ export default function Testimonials() {
   }
 
   const displayed = testimonials.length > 0 ? testimonials : defaultTestimonials;
-  const doubled = [...displayed, ...displayed];
+  const repeated = displayed.length >= 6 ? displayed : Array.from({ length: Math.ceil(6 / displayed.length) }, () => displayed).flat();
+  const doubled = [...repeated, ...repeated];
 
   return (
     <section id="testimonials" className="py-24 bg-[#F8FAFC]">
