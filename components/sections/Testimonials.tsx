@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote, X, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import type { Testimonial } from "@/lib/types";
 
@@ -92,14 +92,40 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 
 export default function Testimonials() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [showModal, setShowModal] = useState(false);
+  const [form, setForm] = useState({ name: "", feedback: "", rating: 5 });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
     supabase
       .from("testimonials")
       .select("*")
+      .eq("status", "approved")
       .order("created_at", { ascending: false })
       .then(({ data }) => { if (data && data.length > 0) setTestimonials(data); });
   }, []);
+
+  async function handleSubmit() {
+    if (!form.name.trim() || !form.feedback.trim()) return;
+    setSubmitting(true);
+    const res = await fetch("/api/testimonials/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+    setSubmitting(false);
+    if (res.ok) {
+      setSubmitted(true);
+      setForm({ name: "", feedback: "", rating: 5 });
+    }
+  }
+
+  function closeModal() {
+    setShowModal(false);
+    setSubmitted(false);
+    setForm({ name: "", feedback: "", rating: 5 });
+  }
 
   const displayed = testimonials.length > 0 ? testimonials : defaultTestimonials;
   const doubled = [...displayed, ...displayed];
@@ -123,6 +149,12 @@ export default function Testimonials() {
             Real feedback from real clients — their success is the best
             testament to my work.
           </p>
+          <button
+            onClick={() => setShowModal(true)}
+            className="mt-6 inline-flex items-center gap-2 px-6 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-all duration-200 shadow-md shadow-blue-200"
+          >
+            Write a Review
+          </button>
         </motion.div>
 
         <div className="overflow-hidden testimonial-slider-wrap">
@@ -155,6 +187,73 @@ export default function Testimonials() {
           }
         `}</style>
       </div>
+
+      <AnimatePresence>
+        {showModal && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50" onClick={closeModal} />
+            <motion.div initial={{ opacity: 0, scale: 0.96, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }} className="fixed inset-0 z-50 flex items-center justify-center p-4" onClick={(e) => e.stopPropagation()}>
+              <div className="bg-white rounded-2xl border border-[#E2E8F0] shadow-xl w-full max-w-md p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="font-semibold text-[#0F172A] text-lg">Write a Review</h2>
+                  <button onClick={closeModal} className="p-1.5 rounded-lg text-[#94A3B8] hover:bg-[#F8FAFC]"><X size={18} /></button>
+                </div>
+
+                {submitted ? (
+                  <div className="text-center py-8">
+                    <div className="w-14 h-14 rounded-full bg-[#DCFCE7] flex items-center justify-center mx-auto mb-4">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16A34A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
+                    </div>
+                    <p className="font-semibold text-[#0F172A] mb-1">Thank you for your review!</p>
+                    <p className="text-sm text-[#64748B]">It will appear after approval.</p>
+                    <button onClick={closeModal} className="mt-6 px-6 py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-colors">Close</button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Your Name</label>
+                      <input
+                        value={form.name}
+                        onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                        placeholder="Enter your name"
+                        className="w-full px-4 py-2.5 text-sm border border-[#E2E8F0] rounded-xl outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE] transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Rating</label>
+                      <div className="flex gap-2">
+                        {[1, 2, 3, 4, 5].map((r) => (
+                          <button key={r} onClick={() => setForm((f) => ({ ...f, rating: r }))} className="p-1">
+                            <Star size={24} className={r <= form.rating ? "text-[#F59E0B] fill-[#F59E0B]" : "text-[#E2E8F0] fill-[#E2E8F0]"} />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-[#0F172A] mb-1.5">Your Review</label>
+                      <textarea
+                        value={form.feedback}
+                        onChange={(e) => setForm((f) => ({ ...f, feedback: e.target.value }))}
+                        rows={4}
+                        placeholder="Share your experience..."
+                        className="w-full px-4 py-2.5 text-sm border border-[#E2E8F0] rounded-xl outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#BFDBFE] transition-all resize-none"
+                      />
+                    </div>
+                    <button
+                      onClick={handleSubmit}
+                      disabled={submitting || !form.name.trim() || !form.feedback.trim()}
+                      className="w-full py-2.5 bg-[#2563EB] text-white text-sm font-semibold rounded-full hover:bg-[#1D4ED8] transition-colors disabled:opacity-60 flex items-center justify-center gap-2"
+                    >
+                      {submitting && <Loader2 size={14} className="animate-spin" />}
+                      Submit Review
+                    </button>
+                  </div>
+                )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

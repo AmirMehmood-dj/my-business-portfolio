@@ -20,6 +20,7 @@ export interface Testimonial {
   feedback: string
   rating: number
   avatar?: string
+  status: 'pending' | 'approved'
   created_at: string
 }
 

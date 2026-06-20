@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Pencil, Trash2, Star, X, Loader2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Star, X, Loader2, Check } from "lucide-react";
 import type { Testimonial } from "@/lib/types";
 
 type FormState = {
@@ -37,6 +37,18 @@ export default function AdminTestimonialsPage() {
     if (!confirm("Delete this testimonial?")) return;
     await fetch(`/api/admin/testimonials/${id}`, { method: "DELETE" });
     setTestimonials((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  async function handleApprove(id: string) {
+    const res = await fetch(`/api/admin/testimonials/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status: "approved" }),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      setTestimonials((prev) => prev.map((t) => (t.id === id ? data : t)));
+    }
   }
 
   function openAdd() {
@@ -122,11 +134,16 @@ export default function AdminTestimonialsPage() {
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {testimonials.map((t) => (
-            <div key={t.id} className="p-5 bg-white rounded-2xl border border-[#E2E8F0] hover:border-[#BFDBFE] hover:shadow-md transition-all">
-              <div className="flex gap-0.5 mb-3">
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} size={13} className="text-[#F59E0B] fill-[#F59E0B]" />
-                ))}
+            <div key={t.id} className={`p-5 bg-white rounded-2xl border hover:shadow-md transition-all ${(t as any).status === 'pending' ? 'border-[#FCD34D]' : 'border-[#E2E8F0] hover:border-[#BFDBFE]'}`}>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex gap-0.5">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star key={i} size={13} className="text-[#F59E0B] fill-[#F59E0B]" />
+                  ))}
+                </div>
+                {(t as any).status === 'pending' && (
+                  <span className="px-2 py-0.5 text-xs font-medium bg-[#FFFBEB] text-[#D97706] rounded-lg border border-[#FCD34D]">Pending</span>
+                )}
               </div>
               <p className="text-sm text-[#475569] leading-relaxed mb-4 line-clamp-3">&ldquo;{t.feedback}&rdquo;</p>
               <div className="flex items-center gap-3 pt-4 border-t border-[#F1F5F9]">
@@ -138,6 +155,11 @@ export default function AdminTestimonialsPage() {
                   <p className="text-xs text-[#94A3B8] truncate">{t.role}, {t.company}</p>
                 </div>
                 <div className="flex items-center gap-1.5">
+                  {(t as any).status === 'pending' && (
+                    <button onClick={() => handleApprove(t.id)} className="p-1.5 rounded-lg text-[#94A3B8] hover:text-green-600 hover:bg-green-50 transition-colors" title="Approve">
+                      <Check size={13} />
+                    </button>
+                  )}
                   <button onClick={() => openEdit(t)} className="p-1.5 rounded-lg text-[#94A3B8] hover:text-[#7C3AED] hover:bg-[#F5F3FF] transition-colors">
                     <Pencil size={13} />
                   </button>
