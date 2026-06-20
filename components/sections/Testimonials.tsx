@@ -65,7 +65,7 @@ const defaultTestimonials: Testimonial[] = [
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] w-[320px] flex-shrink-0 mx-3">
+    <div className="relative p-6 bg-white rounded-2xl border border-[#E2E8F0] w-[calc(33.333vw-24px)] flex-shrink-0 mx-3">
       <Quote size={32} className="text-[#EFF6FF] absolute top-4 right-4 fill-[#EFF6FF]" />
 
       <div className="flex gap-1 mb-4">
