@@ -33,11 +33,7 @@ function CountUp({ target, suffix }: { target: number; suffix: string }) {
 
 export default function Stats() {
   return (
-    <section className="bg-[#040B1A] relative overflow-hidden">
-      {/* Divider glow */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#3B82F6]/40 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#7C3AED]/40 to-transparent" />
-
+    <section className="bg-white border-y border-[#E2E8F0]">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {stats.map((stat, i) => (
@@ -47,18 +43,15 @@ export default function Stats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="relative p-5 sm:p-6 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm text-center hover:border-[#3B82F6]/40 hover:bg-white/10 transition-all duration-300 group"
+              className="p-5 sm:p-6 rounded-2xl border border-[#E2E8F0] bg-[#F8FAFC] text-center hover:border-[#BFDBFE] hover:shadow-lg hover:shadow-blue-50 transition-all duration-300 group"
             >
-              {/* Glow on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#2563EB]/0 to-[#7C3AED]/0 group-hover:from-[#2563EB]/10 group-hover:to-[#7C3AED]/10 transition-all duration-300 pointer-events-none" />
-
-              <p className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#60A5FA] to-[#A78BFA]">
+              <p className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#2563EB] to-[#7C3AED]">
                 <CountUp target={stat.value} suffix={stat.suffix} />
               </p>
-              <p className="mt-1.5 text-sm sm:text-base font-semibold text-white">
+              <p className="mt-1.5 text-sm sm:text-base font-semibold text-[#0F172A]">
                 {stat.label}
               </p>
-              <p className="mt-1 text-xs text-[#64748B] hidden sm:block">
+              <p className="mt-1 text-xs text-[#94A3B8] hidden sm:block">
                 {stat.desc}
               </p>
             </motion.div>
