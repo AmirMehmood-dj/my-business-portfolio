@@ -15,7 +15,7 @@ type FormState = {
   image: string;
   images: string[];
   tech: string;
-  category: "Websites" | "Applications";
+  category: "Websites" | "Applications" | "Web Applications";
   live_url: string;
   featured: boolean;
 };
@@ -375,6 +375,7 @@ export default function AdminProjectsPage() {
                         className={`${inputCls} border-[#E2E8F0] bg-white`}
                       >
                         <option value="Websites">Websites</option>
+                        <option value="Web Applications">Web Applications</option>
                         <option value="Applications">Applications</option>
                       </select>
                     </div>

@@ -5,7 +5,7 @@ export interface Project {
   image: string
   images?: string[]
   tech: string[]
-  category: 'Websites' | 'Applications'
+  category: 'Websites' | 'Applications' | 'Web Applications'
   live_url?: string
   github_url?: string
   featured: boolean

@@ -8,7 +8,7 @@ import Link from "next/link";
 import { supabase } from "@/lib/supabase";
 import type { Project } from "@/lib/types";
 
-const categories = ["All", "Websites", "Applications"] as const;
+const categories = ["All", "Websites", "Web Applications", "Applications"] as const;
 type Category = (typeof categories)[number];
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
