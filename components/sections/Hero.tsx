@@ -107,8 +107,8 @@ export default function Hero() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 w-full">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-20 w-full">
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-20">
 
           {/* ── Left content ── */}
           <div className="flex-1 text-center lg:text-left">
@@ -149,23 +149,25 @@ export default function Hero() {
 
             {/* CTAs */}
             <motion.div custom={4} variants={fadeUp} initial="hidden" animate="visible"
-              className="mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center lg:justify-start gap-3"
+              className="mt-6 lg:mt-8 flex flex-col items-center lg:items-start justify-center lg:justify-start gap-3 w-full"
             >
               <a href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED] text-white font-semibold rounded-full hover:opacity-90 transition-all duration-200 shadow-lg shadow-blue-900/40 hover:-translate-y-0.5"
               >
                 Hire Me <ArrowRight size={16} />
               </a>
-              <a href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
-              >
-                View Projects
-              </a>
-              <a href="/cv.pdf" download
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white/5 text-[#94A3B8] font-medium rounded-full border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
-              >
-                <Download size={16} /> Download CV
-              </a>
+              <div className="flex gap-3 w-full sm:w-auto">
+                <a href="#projects"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 text-white font-medium rounded-full border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
+                >
+                  View Projects
+                </a>
+                <a href="/cv.pdf" download
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/5 text-[#94A3B8] font-medium rounded-full border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-200 hover:-translate-y-0.5 backdrop-blur-sm"
+                >
+                  <Download size={16} /> CV
+                </a>
+              </div>
             </motion.div>
 
             {/* Tech stack */}
@@ -190,12 +192,12 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.85 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="relative flex-shrink-0"
+            className="relative flex-shrink-0 order-first lg:order-none"
           >
             {/* Glow behind photo */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] opacity-30 blur-3xl scale-110 pointer-events-none" />
 
-            <div className="relative w-60 h-60 sm:w-72 sm:h-72 lg:w-[340px] lg:h-[340px]">
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-[340px] lg:h-[340px]">
               {/* Spinning ring */}
               <div className="absolute inset-0 rounded-full border border-dashed border-[#3B82F6]/40 animate-[spin_25s_linear_infinite]" />
               {/* Second ring */}
