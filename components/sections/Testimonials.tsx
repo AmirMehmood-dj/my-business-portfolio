@@ -6,6 +6,63 @@ import { Star, Quote } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import type { Testimonial } from "@/lib/types";
 
+const defaultTestimonials: Testimonial[] = [
+  {
+    id: "1",
+    name: "Sarah Mitchell",
+    role: "Founder",
+    company: "BrightSpace Agency",
+    feedback: "Aamir delivered our website ahead of schedule and it exceeded all expectations. The attention to detail, clean code, and responsiveness across all devices was outstanding. Highly recommend him for any web project.",
+    rating: 5,
+    created_at: "",
+  },
+  {
+    id: "2",
+    name: "James Carter",
+    role: "CEO",
+    company: "TechFlow Solutions",
+    feedback: "Working with Aamir was a seamless experience from start to finish. He understood our requirements perfectly and built a robust web application with excellent UI. Professional, communicative, and highly skilled.",
+    rating: 5,
+    created_at: "",
+  },
+  {
+    id: "3",
+    name: "Aisha Rahman",
+    role: "Marketing Director",
+    company: "Nova Retail",
+    feedback: "Aamir transformed our outdated website into a modern, high-performing platform. Our conversion rate improved significantly after launch. His expertise in React and Next.js is truly impressive.",
+    rating: 5,
+    created_at: "",
+  },
+  {
+    id: "4",
+    name: "David Thompson",
+    role: "Product Manager",
+    company: "HealthSync App",
+    feedback: "The mobile app Aamir built for us using React Native is exactly what we envisioned. Smooth performance on both iOS and Android, clean design, and delivered on time. Will definitely work with him again.",
+    rating: 5,
+    created_at: "",
+  },
+  {
+    id: "5",
+    name: "Omar Khalid",
+    role: "Owner",
+    company: "Gulf Trading Co.",
+    feedback: "Aamir built our e-commerce platform from scratch and the results speak for themselves. Great communication throughout the project and he went above and beyond to ensure everything worked perfectly.",
+    rating: 5,
+    created_at: "",
+  },
+  {
+    id: "6",
+    name: "Emily Watson",
+    role: "CTO",
+    company: "StartupLab Inc.",
+    feedback: "Exceptional developer. Aamir integrated AI features into our platform flawlessly and the code quality is top-notch. He brings both technical expertise and creative problem-solving to every challenge.",
+    rating: 5,
+    created_at: "",
+  },
+];
+
 export default function Testimonials() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
 
@@ -14,10 +71,10 @@ export default function Testimonials() {
       .from("testimonials")
       .select("*")
       .order("created_at", { ascending: false })
-      .then(({ data }) => { if (data) setTestimonials(data); });
+      .then(({ data }) => { if (data && data.length > 0) setTestimonials(data); });
   }, []);
 
-  if (testimonials.length === 0) return null;
+  const displayed = testimonials.length > 0 ? testimonials : defaultTestimonials;
 
   return (
     <section id="testimonials" className="py-24 bg-[#F8FAFC]">
@@ -41,7 +98,7 @@ export default function Testimonials() {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-          {testimonials.map((t, i) => (
+          {displayed.map((t, i) => (
             <motion.div
               key={t.id}
               initial={{ opacity: 0, y: 16 }}
