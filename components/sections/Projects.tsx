@@ -74,6 +74,8 @@ export default function Projects() {
       .then(({ data }) => { if (data) setProjects(data); });
   }, []);
 
+  const featuredProject = projects.find((p) => p.featured);
+
   const filtered =
     active === "All"
       ? projects
@@ -99,6 +101,71 @@ export default function Projects() {
             mobile apps and AI-powered tools.
           </p>
         </motion.div>
+
+        {featuredProject && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl overflow-hidden flex flex-col lg:flex-row">
+              <div className="relative h-64 lg:h-auto lg:w-2/5 flex-shrink-0 bg-[#1E293B]">
+                {featuredProject.image ? (
+                  <Image
+                    src={featuredProject.image}
+                    alt={featuredProject.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Globe size={64} className="text-white/20" />
+                  </div>
+                )}
+              </div>
+              <div className="p-6 lg:p-8 flex flex-col justify-center gap-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="px-2.5 py-1 text-xs font-medium border border-white/20 text-white/70 rounded-lg bg-white/5">
+                    {featuredProject.category}
+                  </span>
+                  <span className="px-2.5 py-1 text-xs font-medium bg-[#FFFBEB] text-[#D97706] rounded-lg border border-[#FCD34D]">
+                    ⭐ Featured
+                  </span>
+                </div>
+                <h3 className="text-xl lg:text-2xl font-bold text-white">
+                  {featuredProject.title}
+                </h3>
+                <p className="text-[#94A3B8] text-sm leading-relaxed line-clamp-4">
+                  {featuredProject.description}
+                </p>
+                {featuredProject.tech && featuredProject.tech.length > 0 && (
+                  <div className="flex flex-wrap gap-2">
+                    {featuredProject.tech.slice(0, 5).map((t: string) => (
+                      <span
+                        key={t}
+                        className="bg-white/10 text-white/70 text-xs px-2.5 py-1 rounded-full"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div>
+                  <Link
+                    href={`/projects/${featuredProject.id}`}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-[#0F172A] text-sm font-medium rounded-full hover:bg-[#F1F5F9] transition-colors"
+                  >
+                    View Details
+                    <ArrowRight size={14} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 10 }}

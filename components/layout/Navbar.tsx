@@ -53,7 +53,9 @@ export default function Navbar() {
               <a
                 key={link.hash}
                 href={href(link.hash)}
-                className="px-3 py-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors rounded-md hover:bg-[#F8FAFC]"
+                className={scrolled
+                  ? "px-3 py-2 text-sm text-[#64748B] hover:text-[#0F172A] transition-colors rounded-md hover:bg-[#F8FAFC]"
+                  : "px-3 py-2 text-sm text-white/70 hover:text-white transition-colors rounded-md hover:bg-white/10"}
               >
                 {link.label}
               </a>
@@ -73,7 +75,9 @@ export default function Navbar() {
           {/* Mobile toggle */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden p-2 rounded-md text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC] transition-colors"
+            className={`md:hidden p-2 rounded-md transition-colors ${scrolled
+              ? "text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]"
+              : "text-white/70 hover:text-white hover:bg-white/10"}`}
             aria-label="Toggle menu"
           >
             <AnimatePresence mode="wait" initial={false}>

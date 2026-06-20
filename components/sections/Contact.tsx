@@ -112,7 +112,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-[#F8FAFC]">
+    <section id="contact" className="py-24 bg-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -139,54 +139,56 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.4 }}
-            className="md:col-span-1 lg:col-span-2 space-y-6"
+            className="md:col-span-1 lg:col-span-2"
           >
-            <div>
-              <h3 className="font-semibold text-[#0F172A] mb-1">
-                Get in touch
-              </h3>
-              <p className="text-sm text-[#64748B]">
-                Available for freelance projects, full-time roles, and
-                consulting engagements.
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              {contactInfo.map(({ icon: Icon, label, value, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-4 p-4 rounded-xl bg-white border border-[#E2E8F0] hover:border-[#2563EB] hover:shadow-md transition-all group"
-                >
-                  <div className="w-10 h-10 rounded-lg bg-[#EFF6FF] flex items-center justify-center group-hover:bg-[#2563EB] transition-colors">
-                    <Icon
-                      size={18}
-                      className="text-[#2563EB] group-hover:text-white transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-xs text-[#94A3B8]">{label}</p>
-                    <p className="text-sm font-medium text-[#0F172A]">{value}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* Availability card */}
-            <div className="p-5 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE]">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
-                <span className="text-sm font-semibold text-[#0F172A]">
-                  Currently available
-                </span>
+            <div className="bg-gradient-to-br from-[#0F172A] to-[#1E293B] rounded-2xl p-6 text-white space-y-6">
+              <div>
+                <h3 className="font-semibold text-white mb-1">
+                  Get in touch
+                </h3>
+                <p className="text-sm text-[#94A3B8]">
+                  Available for freelance projects, full-time roles, and
+                  consulting engagements.
+                </p>
               </div>
-              <p className="text-sm text-[#64748B]">
-                Open to new projects starting{" "}
-                <strong className="text-[#0F172A]">immediately</strong>. Response time
-                within 24 hours.
-              </p>
+
+              <div className="space-y-3">
+                {contactInfo.map(({ icon: Icon, label, value, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-white/10 border border-white/10 hover:bg-white/20 hover:border-white/20 transition-all group"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-white/10 flex items-center justify-center transition-colors">
+                      <Icon
+                        size={18}
+                        className="text-white transition-colors"
+                      />
+                    </div>
+                    <div>
+                      <p className="text-xs text-[#94A3B8]">{label}</p>
+                      <p className="text-sm font-medium text-white">{value}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* Availability card */}
+              <div className="p-5 rounded-xl bg-white/10 border border-white/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-2 h-2 rounded-full bg-[#22C55E] animate-pulse" />
+                  <span className="text-sm font-semibold text-white">
+                    Currently available
+                  </span>
+                </div>
+                <p className="text-sm text-[#94A3B8]">
+                  Open to new projects starting{" "}
+                  <strong className="text-white">immediately</strong>. Response time
+                  within 24 hours.
+                </p>
+              </div>
             </div>
           </motion.div>
 
