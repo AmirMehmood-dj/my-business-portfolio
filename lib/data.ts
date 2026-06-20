@@ -85,6 +85,7 @@ export const testimonials: Testimonial[] = [
     feedback: 'Amir delivered an exceptional SaaS dashboard that exceeded our expectations. His attention to detail and commitment to performance optimization resulted in a 40% improvement in our app\'s load time.',
     rating: 5,
     created_at: '2024-11-01',
+    status: 'approved',
   },
   {
     id: '2',
@@ -94,6 +95,7 @@ export const testimonials: Testimonial[] = [
     feedback: 'Working with Amir was a fantastic experience. He transformed our Figma designs into pixel-perfect, responsive interfaces with seamless animations. Highly recommended for any frontend work.',
     rating: 5,
     created_at: '2024-10-15',
+    status: 'approved',
   },
   {
     id: '3',
@@ -103,6 +105,7 @@ export const testimonials: Testimonial[] = [
     feedback: 'Amir built our React Native app from scratch and delivered a polished, performant product on time. His expertise in mobile development and UI/UX is truly impressive.',
     rating: 5,
     created_at: '2024-09-20',
+    status: 'approved',
   },
 ]
 
